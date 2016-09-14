@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- namespace命名空间，作用就是对sql进行分类化管理，理解sql隔离 
+注意：使用mapper代理方法开发，namespace有特殊重要的作用
+-->
+<mapper namespace="test">
+
+	<!-- 在 映射文件中配置很多sql语句 -->
+	<!-- 需求：通过id查询用户表的记录 -->
+	<!-- 通过 select执行数据库查询
+	id：标识 映射文件中的 sql
+	将sql语句封装到mappedStatement对象中，所以将id称为statement的id
+	parameterType：指定输入 参数的类型，这里指定int型 
+	#{}表示一个占位符号
+	#{id}：其中的id表示接收输入 的参数，参数名称就是id，如果输入 参数是简单类型，#{}中的参数名可以任意，可以value或其它名称
+	
+	resultType：指定sql输出结果 的所映射的java对象类型，select指定resultType表示将单条记录映射成的java对象。
+	 -->
+	
+	<select id="findAreaCount"  resultType="net.engyne.po.Area">
+		SELECT province,count(*) as count FROM client WHERE province is not null group by province
+	</select>
+	<select id="findRuleCount" parameterType="net.engyne.po.RuleQueryVo" resultType="net.engyne.po.Rule">
+		SELECT _index, count FROM rule 
+		<where>
+			<foreach collection="ids" item="rule_index" open="AND (" close=")" separator="or">
+				<!-- 每个遍历需要拼接的串 -->
+				_index=#{rule_index}
+			</foreach>
+		</where>
+		group by _index
+	</select>
+	
+	<select id="findTemplateCount" parameterType="net.engyne.po.TemplateQueryVo" resultType="net.engyne.po.Template">
+		SELECT _index,count FROM template 
+		<where>
+			<foreach collection="ids" item="rule_index" open="AND (" close=")" separator="or">
+				<!-- 每个遍历需要拼接的串 -->
+				_index=#{rule_index}
+			</foreach>
+		</where>
+		group by _index
+	</select>
+	
+	<select id="findOneDimensionCount" parameterType="net.engyne.po.OneDimensionQueryVo" resultType="net.engyne.po.OneDimension">
+		SELECT ${xaxis} as grade,${ymode}(${target}) as count FROM  ${table}
+	 	<if test="filter!=null and filter!=''">
+				<where>
+					 ${filter} 
+				</where>
+		</if>
+		group by ${xaxis}
+		
+	</select>
+	
+	<select id="findSubDimensionCount" parameterType="net.engyne.po.SubDimensionQuery" resultType="net.engyne.po.SubDimension">
+	
+		<if test="groupby!=null and groupby!=''">
+				SELECT ${ymode}(${target}) as count FROM  
+				
+				(select * from ${table} group by ${groupby}) a
+				
+			<if test="filter!=null and filter!=''">
+				<where>
+					 ${filter} 
+				</where>
+			</if>
+		</if>
+		<if test="groupby==null or groupby==''">
+				SELECT ${ymode}(${ target}) as count FROM  ${table} 
+			<if test="filter!=null and filter!=''">
+				<where>
+					 ${filter} 
+				</where>
+			</if>
+		</if>
+	</select>
+	
+	<update id="account_type_add" parameterType="net.engyne.po.AccountTypeQueryVo">
+		insert into dic_account_type (account_type_name) values(#{account_type_name})
+	</update>
+	
+	<update id="account_type_delete" parameterType="net.engyne.po.AccountTypeQueryVo">
+		delete from  dic_account_type where _index=${_index}
+	</update>
+	
+	<update id="account_type_update" parameterType="net.engyne.po.AccountTypeQueryVo">
+		update   dic_account_type set account_type_name=#{account_type_name} where _index=${_index}
+	</update>
+	
+	<select id="account_type_queryAll"  resultType="net.engyne.po.AccountType">
+		SELECT _index,account_type_name FROM dic_account_type 
+	</select>
+	
+	<select id="account_type_queryOne" parameterType="net.engyne.po.AccountTypeQueryVo" resultType="net.engyne.po.AccountType">
+		SELECT _index,account_type_name FROM dic_account_type where _index=${_index}
+	</select>
+	
+	<update id="account_bind" parameterType="net.engyne.po.AccountBindQueryVo">
+		update account set account_type=${_index} where username=#{username}
+	</update>
+	
+	<update id="account_default" parameterType="net.engyne.po.AccountDefaultQueryVo">
+		update account set _default=1 where username=#{username}
+	</update>
+	
+	<select id="tellogquery" parameterType="net.engyne.po.TelLogQueryVo" resultType="net.engyne.po.TelLog">
+		select clientid,username,count,time,caller,callee from loginfo_telephone where clientid =#{clientid}
+	</select>
+	
+	<select id="verifycode_find" parameterType="net.engyne.po.VerifyCode" resultType="net.engyne.po.VerifyCode">
+		SELECT phonenumber,expire,code FROM verifycode where phonenumber=#{phonenumber} 
+	</select>
+	
+	<update id="verifycode_insert" parameterType="net.engyne.po.VerifyCode">
+		INSERT INTO verifycode VALUE(#{phonenumber},#{expire},#{code}) 
+	</update>
+	
+	<update id="verifycode_update" parameterType="net.engyne.po.VerifyCode">
+		update verifycode set code=#{code},expire=#{expire} where phonenumber=#{phonenumber}
+	</update>
+	
+	<select id="verifycode_check" parameterType="net.engyne.po.VerifyCode" resultType="net.engyne.po.VerifyCode">
+		SELECT phonenumber,expire,code FROM verifycode where phonenumber=#{phonenumber} and code=#{code} and #{expire} &lt; expire  
+	</select>
+	
+</mapper>
+
+

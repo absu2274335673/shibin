@@ -1,0 +1,109 @@
+package net.engyne.common;
+
+import java.io.IOException;
+
+import org.apache.commons.httpclient.HttpException;
+import org.apache.log4j.Logger;
+import org.eclipse.paho.client.mqttv3.MqttDeliveryToken;
+import org.eclipse.paho.client.mqttv3.MqttException;
+import org.eclipse.paho.client.mqttv3.MqttPersistenceException;
+import org.eclipse.paho.client.mqttv3.MqttTopic;
+
+import net.engyne.MongoDBDao.MongoDBDao;
+import net.engyne.mqttprotocol.MqttProtocol;
+import net.engyne.util.FileUtil;
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
+
+public class MsgOperation {
+	
+	private static Logger logger = Logger.getLogger(MqttProtocol.class);
+
+	public static String sendSysMsgToClient(String from, String errorCode, String msgCode, String msg, JSONObject data,
+			MqttTopic retopic) throws MqttPersistenceException, MqttException {
+
+		JSONObject jsonObject = new JSONObject();
+		JSONObject contentJson = new JSONObject();
+		contentJson.put("content", msg);
+		jsonObject.put("content", contentJson);
+		jsonObject.put("data", data);
+		jsonObject.put("type", "system");
+		jsonObject.put("msgCode", msgCode);
+		jsonObject.put("errorCode", "0");
+		jsonObject.put("from", FileUtil.getProperty("protocol_clientid"));
+		jsonObject.put("to", from);
+		logger.info(jsonObject.toString());
+		MqttDeliveryToken mdt=retopic.publish(jsonObject.toString().getBytes(), 0, false);
+		logger.info("握手成功消息已经发送");
+		return "success";
+	}
+
+	public static String sendShakeHandInfo(String from, String convid, String appid, String pageid, MqttTopic retopic)
+			throws HttpException, IOException, MqttPersistenceException, MqttException {
+		logger.info("发送最近在线的客服消息");
+		logger.info("调用php接口");
+		String url = Constant.SERVICE_URL_PREFIX + "/Client/getOnlineStaffList/" + appid;
+		logger.info(url);
+		JSONObject jsonObject = RemoteOperation.remoteCall(url);// remoteCall(url);
+		logger.info("aaaaaaaaaaaaaaaa");
+		JSONArray list=null;
+		try {
+			list=jsonObject.getJSONArray("list");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		if(list==null)
+		{
+			logger.info("在线客服信息列表为空");
+		}
+		else
+		{
+			logger.info("获得在线客服信息列表" + list.toString());
+		}
+		String url2 = Constant.SERVICE_URL_PREFIX + "/Application/api/get?appid=" + appid;
+		logger.info("获得system消息的其他属性 包括apptitle，welcomemsg");
+		JSONObject jsonObject2 = RemoteOperation.remoteCall(url2);
+		logger.info(jsonObject2);
+		String apptitle="";
+		String welcomemsg="";
+		try {
+			apptitle = jsonObject2.getJSONArray("list").getJSONObject(0).getString("apptitle");
+			welcomemsg = jsonObject2.getJSONArray("list").getJSONObject(0).getString("welcomemsg");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		logger.info("组装新的system消息");
+		JSONObject data = new JSONObject();
+		
+		data.put("stafflist", list);
+		data.put("team", apptitle);
+		data.put("welcome", welcomemsg);
+		data.put("appid", appid);
+		data.put("pageid", pageid);
+		logger.info("data拼装完成" + data + "发送同步握手消息");
+		sendSysMsgToClient(from, "0", "1005", "握手成功", data, retopic);
+		logger.info("发送未读离线消息");
+		String database = "dolina";
+		String collection = "messages";
+		MongoDBDao.getMongoDBDaoInstance().sendOfflineMsgToClient(from, convid, retopic, database, collection);
+		return "success";
+	}
+	public static String getTextMsg(String tmpindex, String from, String convid, MqttTopic retopic)
+			throws MqttPersistenceException, MqttException {
+		//表示向收到的文本图片消息发送确认消息
+		logger.info("向发送者回复ack表示系统已经收到消息");
+		JSONObject jsonObject = new JSONObject();
+		jsonObject.put("tmpindex", tmpindex);
+		jsonObject.put("type", "ack");
+		jsonObject.put("from", FileUtil.getProperty("protocol_clientid"));
+		jsonObject.put("to", from);
+		jsonObject.put("convid", convid);
+		jsonObject.put("time", (int) (System.currentTimeMillis() / 1000));
+		logger.info("发送ack确认消息");
+		retopic.publish(jsonObject.toString().getBytes(), 0, false);
+		return "success";
+	}
+
+}

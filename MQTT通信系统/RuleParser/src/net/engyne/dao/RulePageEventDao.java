@@ -1,0 +1,34 @@
+package net.engyne.dao;
+
+import java.sql.SQLException;
+import java.util.List;
+
+import org.apache.commons.dbutils.QueryRunner;
+import org.apache.commons.dbutils.handlers.BeanListHandler;
+import org.apache.log4j.Logger;
+
+
+import net.engyne.domain.Rule;
+import net.engyne.mqqt.MqttServer;
+import net.engyne.util.TxQueryRunner;
+
+public class RulePageEventDao {
+	
+	private static Logger logger = Logger.getLogger(MqttServer.class); 
+	public static List<Rule> findRules(String event_title, String pageid,String appid) {
+		QueryRunner qr = new TxQueryRunner();
+		String sql = "SELECT DISTINCT(rule_index), rule_title,rule_desc,sent,once,foralltime FROM view_rule_page_event where event_title=? AND appid=?  AND  (pageid=? or forallpage=1) ";
+		Object[] params = { event_title, appid,pageid};
+		List<Rule> rules=null;
+		try {
+			rules = qr
+					.query(sql, new BeanListHandler<Rule>(Rule.class), params);
+		} catch (SQLException e) {
+			logger.error("RulePageEventDao查询异常",e);
+			
+		}	
+		return rules;
+	}
+	
+
+}

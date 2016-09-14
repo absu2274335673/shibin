@@ -1,0 +1,81 @@
+安装配置
+首先，编译、安装、配置libevent库，执行如下命令：
+wget https://github.com/downloads/libevent/libevent/libevent-1.4.14b-stable.tar.gz
+tar xvzf libevent-1.4.14b-stable.tar.gz
+ln -s /usr/local/libevent-1.4.14b-stable /usr/local/libevent
+cd /usr/local/libevent
+./configure
+make
+make install
+然后，编译、安装、配置Memcached，执行如下命令行：
+wget http://www.memcached.org/files/memcached-1.4.20.tar.gz
+tar xvzf memcached-1.4.20.tar.gz
+ln -s /usr/local/memcached-1.4.20 /usr/local/memcached
+cd /usr/local/memcached
+./configure --with-libevent=/usr/local/libevent/
+make
+make install
+如果没有出错，安装成功。
+但是怎么会不出错，太天真了
+我遇到  error while loading shared libraries: libevent-1.4.so.2: cannot open shared object file: 
+No such file or directory 
+这样的问题是在安装memcached的时候遇到的。
+我按别人的攻略安装了libevent和memcached之后却发现在执行的时候出现了。 
+error while loading shared libraries: libevent-1.4.so.2: cannot open shared object file: No such file or directory 这个错误提示。
+解决类似问题的步骤我相信我的做法可以通用。
+
+1. 首先 find / -name libevent-1.4.so.2 找到缺少的链接文件到底在那儿。
+
+2. LD_DEBUG=libs /usr/local/bin/memcached -v
+
+3. 从Debug信息中就知道程序去哪里找链接库了。我这边程序去 trying file=/usr/lib/libevent-1.4.so.2 而我的链接库的实际存储位置是 /usr/local/lib/libevent-1.4.so.2
+
+4. 做一个软连接 ln -s /usr/local/lib/libevent-1.4.so.2 /usr/lib/libevent-1.4.so.2
+管理memcached服务
+
+启动Memcached
+一般情况下，简单地可以使用类似如下形式，启动Memcached服务：
+/usr/local/bin/memcached -d -m 64 -I 20m -u root -l 192.168.4.86 -p 11211 -c 1024 -P /usr/local/memcached/memcached.pid
+这一步注意换成自己的ip地址和端口号
+上述命令行中，基于上面各个选项，以及其他一些选项的含义，说明如下表所示：
+
+选项	含义说明
+-d	指定memcached进程作为一个守护进程启动
+-m <num>	指定分配给memcached使用的内存，单位是MB
+-u <username>	运行memcached的用户
+-l <ip_addr>	监听的服务器IP地址，如果有多个地址的话，使用逗号分隔，格式可以为“IP地址:端口号”，例如：-l 指定192.168.0.184:19830,192.168.0.195:13542；端口号也可以通过-p选项指定
+-p <num>	Memcached监听的端口，要保证该端口号未被占用
+-c <num>	设置最大运行的并发连接数，默认是1024
+-R <num>	为避免客户端饿死（starvation），对连续达到的客户端请求数设置一个限额，如果超过该设置，会选择另一个连接来处理请求，默认为20
+-k	设置锁定所有分页的内存，对于大缓存应用场景，谨慎使用该选项
+-P	保存memcached进程的pid文件
+-s <file>	指定Memcached用于监听的UNIX socket文件
+-a <perms>	设置-s选项指定的UNIX socket文件的权限
+-U <num>	指定监听UDP的端口，默认11211，0表示关闭
+-M	当内存使用超出配置值时，禁止自动清除缓存中的数据项，此时Memcached不可以，直到内存被释放
+-r	设置产生core文件大小
+-f <factor>	用于计算缓存数据项的内存块大小的乘数因子，默认是1.25
+-n	为缓存数据项的key、value、flag设置最小分配字节数，默认是48
+-C	禁用CAS
+-h	显示Memcached版本和摘要信息
+-v	输出警告和错误信息
+-vv	打印信息比-v更详细：不仅输出警告和错误信息，也输出客户端请求和响应信息
+-i	打印libevent和Memcached的licenses信息
+-t <threads>	指定用来处理请求的线程数，默认为4
+-D <char>	用于统计报告中Key前缀和ID之间的分隔符，默认是冒号“:”
+-L	尝试使用大内存分页（pages）
+-B <proto>	指定使用的协议，默认行为是自动协商（autonegotiate），可能使用的选项有auto、ascii、binary。
+-I <size>	覆盖默认的STAB页大小，默认是1M
+-F	禁用flush_all命令
+-o <options>	指定逗号分隔的选项，一般用于用于扩展或实验性质的选项
+停止Memcached
+可以通过Linux的如下命令查询到Memcached的进程号：
+
+ps -ef | grep memcached
+然后杀掉Memcached服务进程：
+
+kill -9 <PID>
+
+
+
+

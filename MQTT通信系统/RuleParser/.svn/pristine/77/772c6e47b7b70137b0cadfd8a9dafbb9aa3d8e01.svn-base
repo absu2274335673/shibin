@@ -1,0 +1,34 @@
+package net.engyne.util;
+
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
+import java.util.Properties;
+
+import org.apache.log4j.Logger;
+
+import net.engyne.mqqt.MqttServer;
+
+
+public class FileUtil implements java.io.Serializable {
+	 /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private static Logger logger = Logger.getLogger(MqttServer.class);  
+	 public static String readValue(String filePath, String key) {
+		Properties props = new Properties();
+		try {
+			String url = new File("").getAbsolutePath();
+			InputStream in = new BufferedInputStream(new FileInputStream(url+ "/net/engyne/util/" + filePath));
+			props.load(in);
+			String value = props.getProperty(key);
+			logger.error(key + value);
+			return value;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+}

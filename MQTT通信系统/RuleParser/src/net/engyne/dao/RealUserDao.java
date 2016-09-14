@@ -1,0 +1,213 @@
+package net.engyne.dao;
+
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+
+import net.engyne.domain.Medium;
+import net.engyne.domain.User;
+import net.engyne.mqqt.MqttServer;
+import net.engyne.util.TxQueryRunner;
+
+import org.apache.commons.dbutils.QueryRunner;
+import org.apache.commons.dbutils.handlers.BeanListHandler;
+import org.apache.log4j.Logger;
+
+public class RealUserDao {
+	
+	private static Logger logger = Logger.getLogger(MqttServer.class); 
+	/**
+	 * 处理range类型的过滤条件，且begin和end都不为空的情况
+	 * @param sql
+	 * @param mediums
+	 * @param i
+	 * @return
+	 */
+	public static String RangeWithBeginEnd(String sql,List<Medium> mediums,int i)
+	{
+		if (!sql.trim().endsWith("and")&& !sql.trim().endsWith("where")) 
+		{
+			sql = sql + " and " + mediums.get(i).getFilter_key()+ " between " + mediums.get(i).getBegin()+ " and " + mediums.get(i).getEnd() + " ";
+		}
+		else 
+		{
+			sql = sql + " " + mediums.get(i).getFilter_key()+ " between " + mediums.get(i).getBegin()+ " and " + mediums.get(i).getEnd() + " ";
+		}
+		return sql;
+	}
+	/**
+	 * 处理range类型的过滤条件，begin不为空，end为空
+	 * @param sql
+	 * @param mediums
+	 * @param i
+	 * @return
+	 */
+	public static String RangeWithBegin(String sql,List<Medium> mediums,int i)
+	{
+		if (!sql.trim().endsWith("and")&& !sql.trim().endsWith("where")) 
+		{
+			sql = sql + " and  " + mediums.get(i).getFilter_key()+ " > " + mediums.get(i).getBegin() + " ";
+		} else 
+		{
+			sql = sql + "   " + mediums.get(i).getFilter_key()+ " > " + mediums.get(i).getBegin() + " ";
+		}
+		return sql;
+	}
+	/**
+	 * 处理range类型的过滤条件，begin为空，end不为空
+	 * @param sql
+	 * @param mediums
+	 * @param i
+	 * @return
+	 */
+	public static String RangeWithEnd(String sql,List<Medium> mediums,int i)
+	{
+		if (!sql.trim().endsWith("and")&& !sql.trim().endsWith("where")) 
+		{
+			sql = sql + " and " + mediums.get(i).getFilter_key()+ " <  " + mediums.get(i).getEnd() + " ";
+		} 
+		else 
+		{
+			sql = sql + " " + mediums.get(i).getFilter_key()+ " <  " + mediums.get(i).getEnd() + " ";
+		}
+		return sql;
+	}
+	/**
+	 * 处理fuzzy类型的过滤条件
+	 * @param sql
+	 * @param mediums
+	 * @param i
+	 * @return
+	 */
+	public static String Fuzzy(String sql,List<Medium> mediums,int i)
+	{
+		if (!sql.trim().endsWith("and")&& !sql.trim().endsWith("where"))
+		{
+			sql = sql + " and " + mediums.get(i).getFilter_key() + " "+ "like " + "?" + " and ";
+		} else 
+		{
+			sql = sql + " " + mediums.get(i).getFilter_key() + " "+ "like " + "?" + " and ";
+		}
+
+		return sql;
+	}
+	/**
+	 * 处理单值类型的过滤条件
+	 * @param sql
+	 * @param mediums
+	 * @param i
+	 * @return
+	 */
+	public static String Value(String sql,List<Medium> mediums,int i)
+	{
+		if (!sql.trim().endsWith("and")&& !sql.trim().endsWith("where"))
+		{
+			sql = sql + " and " + mediums.get(i).getFilter_key()+ " =? and ";
+		} 
+		else 
+		{
+			sql = sql + " " + mediums.get(i).getFilter_key()+ " =? and ";
+		}
+
+		return sql;
+	}
+	/**
+	 * 处理标签sql查询
+	 * @param sql
+	 * @param temp
+	 * @param tags
+	 * @param tagnames
+	 * @return
+	 */
+	public static String Tag(String sql,List<String> temp ,List<String> tags,List<String> tagnames )
+	{
+		if (!sql.trim().endsWith("and") && !sql.trim().endsWith("where")) 
+		{
+			sql = sql + " and ( ";
+		} else {
+			sql = sql + "  ( ";
+		}
+		for (int i = 0; i < tags.size(); i++)
+		{
+			temp.add(tags.get(i));
+			sql = sql + "" + tagnames.get(i) + "=? or ";
+		}
+		sql = sql.substring(0, sql.length() - 3);
+		sql = sql + " )";
+
+		return sql;
+	}
+	/**
+	 * 做模糊查询的主函数
+	 * @param mediums
+	 * @return
+	 */
+	public static List<User> fuzzyQuery(List<Medium> mediums) {
+		 QueryRunner qr = new TxQueryRunner();
+		logger.info(mediums.toString());
+		String sql = "SELECT DISTINCT(userid),username,nickname,usersex,userage,usertype,registtime,lastseetime,lastpageindex,provinceid,channelid,terminalid,appindex,email,phonenumber FROM view_user_query  where";
+		Object[] params = {};
+		// System.out.println("mediums size"+mediums.size());
+		List<String> temp = new ArrayList<String>();
+		List<String> tags = new ArrayList<String>();
+		List<String> tagnames = new ArrayList<String>();
+		for (int i = 0; i < mediums.size(); i++)
+		{
+			if (mediums.get(i).getFilter_type().equalsIgnoreCase("range")) 
+			{
+				logger.info("进入range");
+				String begin=mediums.get(i).getBegin();
+				String end=mediums.get(i).getEnd();
+				if ((begin != null && !begin.equalsIgnoreCase(""))&& (end != null && !end.equalsIgnoreCase(""))) 
+				{
+					sql=RangeWithBeginEnd( sql, mediums, i);
+				} 
+				else if ((begin != null && !begin.equalsIgnoreCase(""))&& (end == null || end.equalsIgnoreCase(""))) 
+				{
+					sql=RangeWithBegin( sql, mediums, i);
+				}
+				else if ((begin == null || begin.equalsIgnoreCase(""))&& (end != null && !end.equalsIgnoreCase(""))) 
+				{
+					sql=RangeWithEnd( sql, mediums, i);
+				}
+			} 
+			else if (mediums.get(i).getFilter_type().equalsIgnoreCase("multi")) 
+			{
+				tags.add(mediums.get(i).getFilter_value());
+				tagnames.add(mediums.get(i).getFilter_key());
+			}
+			else if (mediums.get(i).getFilter_type().equalsIgnoreCase("fuzzy")) 
+			{
+				sql=Fuzzy(sql,mediums,i);
+				temp.add("%" + mediums.get(i).getFilter_value().trim() + "%");
+			} 
+			else 
+			{
+				sql=Value(sql,mediums,i);
+				temp.add(mediums.get(i).getFilter_value());
+
+			}
+		}
+		if (sql.trim().endsWith("and")) 
+		{
+			sql = sql.substring(0, sql.length() - 5);
+		}
+		// 只有标签可以进行复合查询，其他参数只限一个key一个值
+		if (tags.size() > 0 && tagnames.size() > 0) 
+		{
+			sql=Tag(sql,temp,tags,tagnames);
+		}
+		params = temp.toArray();
+		logger.info("end of temp to params" + params.length);
+		List<User> users = new ArrayList<User>();
+		logger.info("last sql " + sql);
+		try {
+			users = qr.query(sql, new BeanListHandler<User>(User.class), params);
+		} catch (SQLException e) {
+			logger.error("realUserDao查询异常",e);
+			
+		}
+		return users;
+	}
+}

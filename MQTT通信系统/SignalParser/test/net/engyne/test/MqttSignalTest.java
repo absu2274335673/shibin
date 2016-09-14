@@ -1,0 +1,243 @@
+package net.engyne.test;
+
+import java.io.IOException;
+import java.net.UnknownHostException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+
+import org.apache.commons.httpclient.HttpClient;
+import org.apache.commons.httpclient.HttpException;
+import org.apache.commons.httpclient.HttpStatus;
+import org.apache.commons.httpclient.methods.GetMethod;
+import org.bson.Document;
+import org.bson.conversions.Bson;
+
+import com.mongodb.BasicDBObject;
+import com.mongodb.DB;
+import com.mongodb.DBCollection;
+import com.mongodb.DBCursor;
+import com.mongodb.Mongo;
+import com.mongodb.MongoClient;
+import com.mongodb.MongoClientOptions;
+import com.mongodb.MongoCredential;
+import com.mongodb.ServerAddress;
+import com.mongodb.client.FindIterable;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoCursor;
+import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.model.Filters;
+import com.mongodb.client.model.UpdateOptions;
+import com.mongodb.client.result.UpdateResult;
+import com.mongodb.util.JSON;
+
+import net.engyne.dao.ConversationDao;
+import net.engyne.mongodao.MongoDBDao;
+import net.engyne.util.MD5Util;
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
+
+public class MqttSignalTest 
+{
+	@org.junit.Test
+	public void callPhp() throws HttpException, IOException
+	{
+		HttpClient httpClient = new HttpClient(); 
+		    String clientid = "_robot_signal";
+	    	GetMethod method =null ;
+	    	String appid="b103224d6d43eb3417d560629e2d38c8";
+	    	String username="bshi@engyne.net";
+	    	String url = "http://dev.engyne.net/core/index.php/"+"Client/bindUser?clientid=" + clientid + "&appid=" +appid +"&username=" + username;
+	    	method=new GetMethod(url);
+	    	int retcode = httpClient.executeMethod(method);
+	    	System.out.println(retcode);
+	    	String body = method.getResponseBodyAsString();  
+	    	System.out.println("sdddddddsddddd");
+        	System.out.println(body);
+	    	if (retcode != HttpStatus.SC_OK)
+	    	{// 发送不成功  
+	           System.out.println("远程调用出错");  
+	        } else {  
+	        	 body = method.getResponseBodyAsString();  
+	        	System.out.println(body);
+	       } 
+	       if (method != null) 
+	       {  
+	           method.releaseConnection();  
+	       }  
+	}
+	@org.junit.Test
+	public void mongotest1() throws UnknownHostException
+	{
+
+	   String url1 = "mongo.100000q.com";
+       String user1 = "root";
+       String password1 = "Redrocks-dolina";
+       String database = "dolina";
+       int port = 27017;
+       String collection = "event";
+       MongoDatabase mongoDatabase = MongoOperation.PassWordLogin(url1, port, database, user1, password1);
+       MongoCollection mongoCollection = mongoDatabase.getCollection(collection);
+      
+     String ans = MongoOperation.findID("12AE5D66-E7FA-5D73-F473-A18B99EC46F9");
+     System.out.println(ans);
+//     while (cursor1.hasNext()) {
+//         String temp = cursor1.next().toString();
+//         String []strings = temp.split(",");
+//         for (int i = 0; i < strings.length; i++) {
+//             System.out.println(strings[i]);
+//         }
+//     }
+ }
+	@org.junit.Test
+	public void mongotest2() throws UnknownHostException
+	{
+		   String url = "mongo.100000q.com";
+	       String user = "root";
+	       String password = "Redrocks-dolina";
+	       String database = "dolina";
+	       int port = 27017;
+	       String collection = "event";
+		 ServerAddress serverAddress = new ServerAddress(url, port);
+         List<ServerAddress> serverAddresses = new ArrayList<ServerAddress>();
+         serverAddresses.add(serverAddress);
+         MongoCredential credential = MongoCredential.createCredential(user, database, password.toCharArray());
+         List<MongoCredential> credentials = new ArrayList<MongoCredential>();
+         credentials.add(credential);
+         MongoClient mongoClient = new MongoClient(serverAddresses, credentials);
+         MongoDatabase mongoDatabase = mongoClient.getDatabase(database);
+         MongoCollection mongoCollection = mongoDatabase.getCollection(collection);
+         BasicDBObject query = new BasicDBObject();
+         query.put("_id", "CDBDED9D-04AA-09F0-8EAE-81A6BB93D581");
+         FindIterable iterable;
+         
+         iterable = mongoCollection.find(query);
+//         MongoCursor cursor = iterable.iterator();
+//         while (cursor.hasNext()) {
+//             System.out.println(cursor.next());
+//         }
+         System.out.println(iterable.first());
+//         iterable = mongoCollection.find(query);
+//         System.out.println(iterable.first());
+//         String _idobj="1F5F8568-9B8F-E3EC-966A-D40F3475AF71";
+//			Bson filter = Filters.eq("_id", _idobj);
+//			
+//			Document newdoc = new Document();
+//			
+//			newdoc.put("event", "testengyne");
+//			Document data = new Document();
+//			data.put("counter", "1");
+//			newdoc.put("data", data);
+//			newdoc.put("pageid", "1");
+//			newdoc.put("time", "88888888888");
+//			Document doc = new Document();
+//			doc.put("engyne", newdoc);
+//			doc.put("appids", "shopping");
+//			UpdateOptions updateOptions=new UpdateOptions();
+//			updateOptions.upsert(true);
+//			mongoCollection.updateOne(filter, new Document("$addToSet", doc), updateOptions);
+//			//UpdateResult ur=mongoCollection.updateOne(filter, new Document("$addToSet", doc));
+//			//System.out.println(ur.getModifiedCount());
+//	         iterable = mongoCollection.find(query);
+//	         System.out.println(iterable.first());
+	         
+	         
+	         
+			
+         }
+	@org.junit.Test
+       public void inputTest()
+       {
+    	   String url = "mongo.100000q.com";
+	       String user = "root";
+	       String password = "Redrocks-dolina";
+	       String database = "dolina";
+	       int port = 27017;
+	       String collection = "input";
+		 ServerAddress serverAddress = new ServerAddress(url, port);
+         List<ServerAddress> serverAddresses = new ArrayList<ServerAddress>();
+         serverAddresses.add(serverAddress);
+         MongoCredential credential = MongoCredential.createCredential(user, database, password.toCharArray());
+         List<MongoCredential> credentials = new ArrayList<MongoCredential>();
+         credentials.add(credential);
+         MongoClient mongoClient = new MongoClient(serverAddresses, credentials);
+         MongoDatabase mongoDatabase = mongoClient.getDatabase(database);
+         MongoCollection mongoCollection = mongoDatabase.getCollection(collection);
+         BasicDBObject query = new BasicDBObject();
+         String _idobj="56B08616-979B-4C49-DD88-32696D0A756C";
+         query.put("_id", _idobj);
+         FindIterable iterable;
+         
+  //       iterable = mongoCollection.find();
+//         MongoCursor cursor = iterable.iterator();
+//         while (cursor.hasNext()) {
+//             System.out.println(cursor.next());
+//         }
+//         System.out.println(iterable.first());
+         iterable = mongoCollection.find(query);
+         System.out.println("更新之前"+iterable.first());
+			Bson filter = Filters.eq("_id", "56B0861-979B-4C49-DD88-32696D0A756C");
+			Document newdoc = new Document();
+			newdoc.put("result", "shibin");
+			newdoc.put("time", "88888888888");
+			Document doc = new Document();
+			doc.put("17", newdoc);
+			UpdateOptions updateOptions=new UpdateOptions();
+			updateOptions.upsert(true);
+			mongoCollection.updateOne(filter, new Document("$addToSet", doc), updateOptions);
+	         iterable = mongoCollection.find(query);
+	         System.out.println("更新之后"+iterable.first());
+       }
+	
+	@org.junit.Test
+    public void voteTest()
+    {
+		String url = "mongo.100000q.com";
+	       String user = "root";
+	       String password = "Redrocks-dolina";
+	       String database = "dolina";
+	       int port = 27017;
+	       String collection = "vote";
+		 ServerAddress serverAddress = new ServerAddress(url, port);
+      List<ServerAddress> serverAddresses = new ArrayList<ServerAddress>();
+      serverAddresses.add(serverAddress);
+      MongoCredential credential = MongoCredential.createCredential(user, database, password.toCharArray());
+      List<MongoCredential> credentials = new ArrayList<MongoCredential>();
+      credentials.add(credential);
+      MongoClient mongoClient = new MongoClient(serverAddresses, credentials);
+      MongoDatabase mongoDatabase = mongoClient.getDatabase(database);
+      MongoCollection mongoCollection = mongoDatabase.getCollection(collection);
+      BasicDBObject query = new BasicDBObject();
+      String _idobj="8e296a067a37563370ded05f5a3bf3ecd";
+      query.put("_id", _idobj);
+      FindIterable iterable;
+      iterable = mongoCollection.find(query);
+      System.out.println("更新之前"+iterable.first());
+			Bson filter = Filters.eq("_id", "8e296a067a37563370ded05f5a3bf3ecd");
+			Document newdoc = new Document();
+			newdoc.put("clientid", "66666666666666");
+			newdoc.put("result", "shibin");
+			newdoc.put("time", "88888888888");
+			newdoc.put("type", "vote");
+			Document doc = new Document();
+			doc.put("log", newdoc);
+			Document ndoc = new Document();
+			UpdateOptions updateOptions=new UpdateOptions();
+			updateOptions.upsert(true);
+			mongoCollection.updateOne(filter, new Document("$addToSet", doc), updateOptions);
+			UpdateResult ur=mongoCollection.updateOne(new BasicDBObject().append("_id", "8e296a067a37563370ded05f5a3bf3ecd"),new BasicDBObject().append("$inc",new BasicDBObject().append("stats.1", 1)) );
+			UpdateResult ur1=mongoCollection.updateOne(new BasicDBObject().append("_id", "8e296a067a37563370ded05f5a3bf3ecd"),new BasicDBObject().append("$inc",new BasicDBObject().append("stats.total", 1)) );
+			iterable = mongoCollection.find(query);
+	        System.out.println("更新之后"+iterable.first());
+	         
+    }
+	@org.junit.Test
+	public void md5Test()
+	{
+		JSONObject data=new JSONObject();
+		data.put("name", "shibin");
+		MongoDBDao.getMongoDBDaoInstance().saveMongoEvent("222222222222222", "load", "22", "33333333333", data, "shopping", "dolina", "event");
+	}
+	
+}
+

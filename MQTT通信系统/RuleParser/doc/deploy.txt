@@ -1,0 +1,11 @@
+1把mqttserver工程打包为runnable jar，方法为：右键工程-->export->runnable jar（这里注意选择第二个选项否则不能用）
+
+2我们的工程放在linux服务器上的/alidata/www/default/dolina/core/backjava/mqtt目录下面
+
+3整个工程作为后台守护进程来运行，linux命令如下：nohup java -jar mqttserver.jar &
+
+设置堆栈大小参数 nohup java -jar -Xms128m -Xmx512m -XX:PermSize=128M -XX:MaxPermSize=256M mqttserver.jar &
+
+Xms 为初始化堆栈大小，Xmx最大堆栈大小
+
+4所有的日志输出会在nohup.out里面，与mqttserver.jar在相同的目录级别，运行时自动生成

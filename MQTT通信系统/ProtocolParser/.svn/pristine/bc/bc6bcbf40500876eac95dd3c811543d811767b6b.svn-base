@@ -1,0 +1,301 @@
+package net.engyne.mqttprotocol;
+
+import java.io.File;
+import java.text.SimpleDateFormat;
+
+import org.apache.log4j.Logger;
+import org.apache.log4j.PropertyConfigurator;
+import org.bson.Document;
+import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
+import org.eclipse.paho.client.mqttv3.MqttCallback;
+import org.eclipse.paho.client.mqttv3.MqttClient;
+import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
+import org.eclipse.paho.client.mqttv3.MqttException;
+import org.eclipse.paho.client.mqttv3.MqttMessage;
+import org.eclipse.paho.client.mqttv3.MqttPersistenceException;
+import org.eclipse.paho.client.mqttv3.MqttTopic;
+import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
+
+import net.engyne.MongoDBDao.MongoDBDao;
+import net.engyne.common.Constant;
+import net.engyne.common.MsgOperation;
+import net.engyne.common.RemoteOperation;
+import net.engyne.dao.ClientDao;
+import net.engyne.util.FileUtil;
+import net.sf.json.JSONObject;
+
+public class MqttProtocol 
+{
+	private static Logger logger = Logger.getLogger(MqttProtocol.class);  
+//    public static final String HOST = "tcp://dev.engyne.net:1883";
+	 public static final String HOST = "tcp://"+FileUtil.getProperty("mqtt_ip")+":"+FileUtil.getProperty("mqtt_port");
+//    private static final String CLIENTID = "_robot";
+	 private static final String CLIENTID = FileUtil.getProperty("protocol_clientid");
+    private MqttClient client;
+    private MqttConnectOptions options = new MqttConnectOptions();
+
+    public MqttMessage message;
+    private PushCallback callback;
+    
+	/**
+	 * 用于初始化mqttclient客户端，设置回调函数，同时连接mqtt服务器
+	 * 
+	 * @throws MqttException
+	 */
+	public MqttProtocol() throws MqttException {
+		System.out.println(HOST);
+		// MemoryPersistence设置clientid的保存形式，默认为以内存保存
+		client = new MqttClient(HOST, CLIENTID, new MemoryPersistence());
+		callback = new PushCallback();
+		client.setCallback(callback);
+		options = new MqttConnectOptions();
+		options.setCleanSession(true);
+		options.setKeepAliveInterval(60);
+		connect();
+	}
+
+	/**
+	 * 连接mqtt消息服务器，同时设置了断开重连的功能
+	 */
+	private void connect() {
+		SimpleDateFormat sdf = new SimpleDateFormat(Constant.DATE_FORMAT_MDYHMS);
+		logger.info(sdf.format(System.currentTimeMillis()));
+		boolean tryConnecting = true;
+		while (tryConnecting) {
+			try {
+				client.connect(options);
+			} catch (Exception e1) {
+				logger.info("Connection attempt failed with '" + e1.getCause() + "'. Retrying.");
+			}
+			if (client.isConnected()) {
+				logger.info("Connected.");
+				tryConnecting = false;
+			} else {
+				pause();
+			}
+		}
+	}
+
+	private void pause() {
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			// Error handling goes here...
+		}
+	}
+
+	/**
+	 * 
+	 * @param topic
+	 * @param qos
+	 * @throws MqttPersistenceException
+	 * @throws MqttException
+	 *             订阅相关主题
+	 */
+	public void subscribe(String topic, int qos) throws MqttPersistenceException, MqttException {
+		client.subscribe(topic, qos);
+	}
+
+	/**
+	 * 
+	 * @throws MqttPersistenceException
+	 * @throws MqttException
+	 *             断开连接服务器
+	 */
+	public void disconnect() throws MqttPersistenceException, MqttException {
+		client.disconnect();
+	}
+
+	/**
+	 * 
+	 * @author binshi 实现mqttcallback接口，主要用于接收消息后的处理方法
+	 */
+	private class PushCallback implements MqttCallback {
+		/**
+		 * 断开后 系统会自动调用这个函数，同时在这个函数里进行重连操作
+		 */
+		public void connectionLost(Throwable cause) {
+			// 连接丢失后，一般在这里面进行重连
+			logger.info("连接断开，可以做重连");
+			connect();
+			try {
+				subscribe(Constant.TOPIC_MQTT_PROTOCOL, 2);
+			} catch (MqttPersistenceException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (MqttException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+   	    
+   	    /**
+   	     * 消息成功传送后，系统会自动调用此函数，表明成功向topic发送消息
+   	     */
+   		@Override
+  		public void deliveryComplete(IMqttDeliveryToken arg0) {
+  			// TODO Auto-generated method stub
+   			logger.info("deliveryComplete---------" + arg0.isComplete());
+  		}
+   		public void messageArrived(String topic, MqttMessage message) throws Exception
+   		{
+			logger.info(topic);
+	    	SimpleDateFormat sdf= new SimpleDateFormat(Constant.DATE_FORMAT_MDYHMS);
+	    	logger.info(sdf.format(System.currentTimeMillis()));
+	    	logger.info("接收消息主题 : " + topic);  
+	    	logger.info("接收消息Qos : " + message.getQos());  
+	    	logger.info("接收消息内容 : " + new String(message.getPayload()));
+	    	//1 抽取事件信令消息
+		    String messagejudge=new String(message.getPayload());
+		    logger.info("忽略所有robot消息以及offline离线消息");
+		    JSONObject jo=new JSONObject();
+			try {
+				 jo=JSONObject.fromObject(messagejudge);		
+			} catch (Exception e) {							
+				e.printStackTrace();
+			}
+			String from=jo.getString("from");
+			logger.info("获得from"+from);
+			logger.info("确定消息是否包含offline，如果包含取得offline，为1就不处理有robot也不处理");
+			String offline=null;
+			if(messagejudge.contains("offline"))
+			{
+				offline=jo.getString("offline");
+			}
+		
+			if((offline==null)&&(!messagejudge.contains("robot")))
+			{
+				logger.info("处理非系统消息和非离线消息");
+				String type=jo.getString("type");
+				logger.info("获得type"+type);
+				if(type.equals("shakehand"))
+				{
+					logger.info("处理shakehand消息");
+					String admin="doyounkowwhy";
+					if(jo.has("admin"))
+					{
+						admin=jo.getString("admin");
+					}
+					logger.info("取得admin 如果为1定义为客服，否则为普通用户 admin为"+admin);
+					if(admin.equals("1"))
+					{
+						logger.info("处理客服握手消息");
+						logger.info("发送握手成功消息");
+						MqttTopic retopic=client.getTopic(topic);
+						MsgOperation.sendSysMsgToClient(from,"0", "1005", "握手成功", null,retopic);
+						logger.info("向客户端发送离线未接收的消息");
+						String convid=jo.getString("convid");
+						String database="dolina";
+						String collection="messages";
+						MongoDBDao.getMongoDBDaoInstance().sendOfflineMsgToClient(from, convid,retopic,database,collection);
+					}
+					else
+					{
+						logger.info("处理普通用户的握手消息");
+						String appid=jo.getString("appid");
+						String pageid=jo.getString("pageid");
+						String convid=jo.getString("convid");
+						MqttTopic retopic=client.getTopic(topic);
+						MsgOperation.sendShakeHandInfo(from,convid,appid,pageid,retopic);
+					}
+					logger.info("更新loggerinfo信息");
+					logger.info("取出clientinfo 转换成为document");
+					Document doc=Document.parse(jo.getJSONObject("clientinfo").toString());
+					String appid="";
+					logger.info(jo.has("appid"));
+					if(jo.has("appid"))
+					{
+						appid=jo.getString("appid");
+					}
+					String pageid="";
+					if(jo.has("pageid"))
+					{
+						pageid=jo.getString("pageid");
+					}
+					logger.info("appid"+appid);
+					MongoDBDao.getMongoDBDaoInstance().updateLoginfo("dolina", "loginfo", jo.getString("from"), appid, pageid, doc);
+					logger.info("更新client信息");
+					logger.info("判断是ios还是其他的channel");
+					String os="";
+					String network="";
+					String terminal="";
+					if(jo.getJSONObject("clientinfo").getJSONObject("deviceinfo").toString().contains("os"))
+					{
+						os=jo.getJSONObject("clientinfo").getJSONObject("deviceinfo").getString("os");
+					}
+					if(jo.getJSONObject("clientinfo").getJSONObject("deviceinfo").toString().contains("network"))
+					{
+						network=jo.getJSONObject("clientinfo").getJSONObject("deviceinfo").getString("network");
+					}
+					if(jo.getJSONObject("clientinfo").getJSONObject("deviceinfo").toString().contains("terminal"))
+					{
+						terminal=jo.getJSONObject("clientinfo").getJSONObject("deviceinfo").getString("terminal");
+					}
+					logger.info("os"+os+"network"+network+"terminal"+terminal+"from"+from);
+					ClientDao.updateClient(os, network, terminal, from);
+				}
+				else if(type.equals("text")||type.equals("image"))
+				{
+					if(jo.has("tmpindex"))
+					{
+						logger.info("处理图片和文字消息");
+						String tmpindex=jo.getString("tmpindex");
+						String convid=jo.getString("convid");
+						String session=jo.getString("session");
+						MqttTopic retopic=client.getTopic(topic);
+						MsgOperation.getTextMsg( tmpindex, from, convid, retopic,session);
+						logger.info("保存图片文字消息");
+						String database="dolina";
+						String collection="messages";
+						MongoDBDao.getMongoDBDaoInstance().saveTextMsg(database,collection,jo);
+						logger.info("更新最后对话消息时间");
+						String url=Constant.SERVICE_URL_PREFIX +"/Conversation/update?convid=" + convid;
+						JSONObject jsonObject=RemoteOperation.remoteCall(url);
+						logger.info("调用结果"+jsonObject.toString());
+					}
+					
+				}
+				else if(type.equals("ack"))
+				{
+					logger.info("处理ack消息");
+					String tmpindex="";
+					String convid="";
+					String database="dolina";
+					String collection="messages";
+					try {
+						tmpindex = jo.getString("tmpindex");
+						convid = jo.getString("convid");
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					MongoDBDao.getMongoDBDaoInstance().getAck(tmpindex,convid,from,database,collection);
+				}
+			}
+		    
+		   
+   		}
+   	}
+
+	/**
+	 * 
+	 * @param args
+	 * @throws MqttException
+	 * 整个工程从这里开始执行，生成可执行jar包，这个设置为主类。
+	 */
+	public static void main(String[] args) throws MqttException {
+		String path=new File("").getAbsoluteFile().getParentFile().toString();
+		System.out.println("path:"+path);
+		PropertyConfigurator.configure(path+"/config/log4j.properties");
+		//PropertyConfigurator.configure("/Users/binshi/Documents/workspace/config/log4j.properties");
+		MqttProtocol signal = new MqttProtocol();
+		signal.message = new MqttMessage();
+		/**
+		 * server.message.setQos(2); server.message.setRetained(false);
+		 * server.message.setPayload("给客户端124推送的信息".getBytes());
+		 * server.subscribe("/engyne/1/7/169573fcbc96a816281192222", 2);
+		 */
+		signal.subscribe(Constant.TOPIC_MQTT_PROTOCOL, 2);
+		logger.info(signal.message.isRetained() + "------ratained状态");
+	}
+}

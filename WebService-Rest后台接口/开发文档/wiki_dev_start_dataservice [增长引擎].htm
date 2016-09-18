@@ -1,0 +1,1066 @@
+<!DOCTYPE html>
+<!-- saved from url=(0064)http://192.168.1.188/wiki/doku.php?id=wiki:dev:start:dataservice -->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh" lang="zh" dir="ltr" class="js"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>wiki:dev:start:dataservice [增长引擎]</title>
+  <script>(function(H){H.className=H.className.replace(/\bno-js\b/,'js')})(document.documentElement)</script>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="shortcut icon" href="http://192.168.1.188/wiki/lib/tpl/bootstrap3/images/favicon.ico">
+<link rel="apple-touch-icon" href="http://192.168.1.188/wiki/lib/tpl/bootstrap3/images/apple-touch-icon.png">
+    <meta name="generator" content="DokuWiki">
+<meta name="robots" content="index,follow">
+<meta name="keywords" content="wiki,dev,start,dataservice">
+<style class="anchorjs"></style><link type="text/css" rel="stylesheet" href="./wiki_dev_start_dataservice [增长引擎]_files/bootstrap.min.css">
+<link rel="search" type="application/opensearchdescription+xml" href="http://192.168.1.188/wiki/lib/exe/opensearch.php" title="增长引擎">
+<link rel="start" href="http://192.168.1.188/wiki/">
+<link rel="contents" href="http://192.168.1.188/wiki/doku.php?id=wiki:dev:start:dataservice&amp;do=index" title="网站地图">
+<link rel="alternate" type="application/rss+xml" title="最近更改" href="http://192.168.1.188/wiki/feed.php">
+<link rel="alternate" type="application/rss+xml" title="当前命名空间" href="http://192.168.1.188/wiki/feed.php?mode=list&amp;ns=wiki:dev:start">
+<link rel="edit" title="编辑本页" href="http://192.168.1.188/wiki/doku.php?id=wiki:dev:start:dataservice&amp;do=edit">
+<link rel="alternate" type="text/html" title="纯HTML" href="http://192.168.1.188/wiki/doku.php?do=export_xhtml&amp;id=wiki:dev:start:dataservice">
+<link rel="alternate" type="text/plain" title="Wiki Markup 语言" href="http://192.168.1.188/wiki/doku.php?do=export_raw&amp;id=wiki:dev:start:dataservice">
+<link rel="canonical" href="http://192.168.1.188/wiki/doku.php?id=wiki:dev:start:dataservice">
+<link rel="stylesheet" type="text/css" href="./wiki_dev_start_dataservice [增长引擎]_files/css.php">
+<link type="text/css" rel="stylesheet" href="./wiki_dev_start_dataservice [增长引擎]_files/font-awesome.min.css">
+<script type="text/javascript">/*<![CDATA[*/var NS='wiki:dev:start';var SIG=' --- //[[bshi@engyne.net|石斌]] 2016/09/18 10:13//';var JSINFO = {"id":"wiki:dev:start:dataservice","namespace":"wiki:dev:start","bootstrap3":{"mode":"show","config":{"tagsOnTop":1,"collapsibleSections":0,"tocCollapseOnScroll":1,"tocAffix":1}}};
+/*!]]>*/</script>
+<script type="text/javascript" charset="utf-8" src="./wiki_dev_start_dataservice [增长引擎]_files/js.php"></script><style id="iris-css">.iris-picker{display:block;position:relative}.iris-picker,.iris-picker *{-moz-box-sizing:content-box;-webkit-box-sizing:content-box;box-sizing:content-box}input+.iris-picker{margin-top:4px}.iris-error{background-color:#ffafaf}.iris-border{border-radius:3px;border:1px solid #aaa;width:200px;background-color:#fff}.iris-picker-inner{position:absolute;top:0;right:0;left:0;bottom:0}.iris-border .iris-picker-inner{top:10px;right:10px;left:10px;bottom:10px}.iris-picker .iris-square-inner{position:absolute;left:0;right:0;top:0;bottom:0}.iris-picker .iris-square,.iris-picker .iris-slider,.iris-picker .iris-square-inner,.iris-picker .iris-palette{border-radius:3px;box-shadow:inset 0 0 5px rgba(0,0,0,.4);height:100%;width:12.5%;float:left;margin-right:5%}.iris-picker .iris-square{width:76%;margin-right:10%;position:relative}.iris-picker .iris-square-inner{width:auto;margin:0}.iris-ie-9 .iris-square,.iris-ie-9 .iris-slider,.iris-ie-9 .iris-square-inner,.iris-ie-9 .iris-palette{box-shadow:none;border-radius:0}.iris-ie-9 .iris-square,.iris-ie-9 .iris-slider,.iris-ie-9 .iris-palette{outline:1px solid rgba(0,0,0,.1)}.iris-ie-lt9 .iris-square,.iris-ie-lt9 .iris-slider,.iris-ie-lt9 .iris-square-inner,.iris-ie-lt9 .iris-palette{outline:1px solid #aaa}.iris-ie-lt9 .iris-square .ui-slider-handle{outline:1px solid #aaa;background-color:#fff;-ms-filter:"alpha(Opacity=30)"}.iris-ie-lt9 .iris-square .iris-square-handle{background:0;border:3px solid #fff;-ms-filter:"alpha(Opacity=50)"}.iris-picker .iris-strip{margin-right:0;position:relative}.iris-picker .iris-strip .ui-slider-handle{position:absolute;background:0;margin:0;right:-3px;left:-3px;border:4px solid #aaa;border-width:4px 3px;width:auto;height:6px;border-radius:4px;box-shadow:0 1px 2px rgba(0,0,0,.2);opacity:.9;z-index:5;cursor:ns-resize}.iris-strip .ui-slider-handle:before{content:" ";position:absolute;left:-2px;right:-2px;top:-3px;bottom:-3px;border:2px solid #fff;border-radius:3px}.iris-picker .iris-slider-offset{position:absolute;top:11px;left:0;right:0;bottom:-3px;width:auto;height:auto;background:transparent;border:0;border-radius:0}.iris-picker .iris-square-handle{background:transparent;border:5px solid #aaa;border-radius:50%;border-color:rgba(128,128,128,.5);box-shadow:none;width:12px;height:12px;position:absolute;left:-10px;top:-10px;cursor:move;opacity:1;z-index:10}.iris-picker .ui-state-focus .iris-square-handle{opacity:.8}.iris-picker .iris-square-handle:hover{border-color:#999}.iris-picker .iris-square-value:focus .iris-square-handle{box-shadow:0 0 2px rgba(0,0,0,.75);opacity:.8}.iris-picker .iris-square-handle:hover::after{border-color:#fff}.iris-picker .iris-square-handle::after{position:absolute;bottom:-4px;right:-4px;left:-4px;top:-4px;border:3px solid #f9f9f9;border-color:rgba(255,255,255,.8);border-radius:50%;content:" "}.iris-picker .iris-square-value{width:8px;height:8px;position:absolute}.iris-ie-lt9 .iris-square-value,.iris-mozilla .iris-square-value{width:1px;height:1px}.iris-palette-container{position:absolute;bottom:0;left:0;margin:0;padding:0}.iris-border .iris-palette-container{left:10px;bottom:10px}.iris-picker .iris-palette{margin:0;cursor:pointer}.iris-square-handle,.ui-slider-handle{border:0;outline:0}</style>
+<script type="text/javascript" src="./wiki_dev_start_dataservice [增长引擎]_files/bootstrap.min.js"></script>
+<script type="text/javascript" src="./wiki_dev_start_dataservice [增长引擎]_files/anchor.min.js"></script>
+<script type="text/javascript">/*<![CDATA[*/jQuery(document).ready(function() { jQuery('body').scrollspy({ target: '#dokuwiki__toc', offset: 30 });jQuery("#dokuwiki__toc").affix({ offset: { top: (jQuery("main").position().top), bottom: (jQuery(document).height() - jQuery("main").height()) } });jQuery(document).trigger('bootstrap3:anchorjs'); });
+/*!]]>*/</script>
+<style type="text/css">@media screen { body { padding-top: 20px; } #dokuwiki__toc.affix { top: 10px; position: fixed !important; } #dokuwiki__toc .nav .nav .nav { display: none; }}</style>
+    <!--[if lt IE 9]>
+  <script type="text/javascript" src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+  <script type="text/javascript" src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+  <![endif]-->
+</head>
+<body class="spacelab dokuwiki mode_show tpl_bootstrap3 loggedIn   dw-page-on-panel">
+
+  <header id="dokuwiki__header" class="dokuwiki container">
+        <nav class="navbar navbar-default" role="navigation">
+
+  <div class="container-fluid">
+
+    <div class="navbar-header">
+
+      <button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+
+      <a href="http://192.168.1.188/wiki/doku.php?id=start" accesskey="h" title="[H]" class="navbar-brand"><img src="./wiki_dev_start_dataservice [增长引擎]_files/logo.png" alt="增长引擎" class="pull-left" id="dw__logo" height="20"> <span id="dw__title">增长引擎</span></a>
+    </div>
+
+    <div class="collapse navbar-collapse">
+
+      
+            
+      
+      <div class="navbar-right">
+
+        <form action="http://192.168.1.188/wiki/doku.php?id=start" accept-charset="utf-8" class="navbar-form navbar-left search" id="dw__search" method="get" role="search"><div class="no"><div class="form-group"><input type="hidden" name="do" value="search"><input id="qsearch__in" type="search" placeholder="搜索" accesskey="f" name="id" class="edit form-control" title="[F]"></div> <button type="submit" class="btn btn-default" title="搜索"><i class="fa fa-fw fa-search"></i><span class="hidden-lg hidden-md hidden-sm"> 搜索</span></button><div id="qsearch__out" class="panel panel-default ajax_qsearch JSpopup"></div></div></form>
+        
+<ul class="nav navbar-nav dw-action-icon" id="dw__tools">
+
+
+  <li class="dropdown">
+
+    <a href="http://192.168.1.188/wiki/doku.php?id=wiki:dev:start:dataservice" class="dropdown-toggle" data-target="#" data-toggle="dropdown" title="" role="button" aria-haspopup="true" aria-expanded="false">
+      <i class="fa fa-fw fa-wrench"></i> <span class="hidden-lg hidden-md hidden-sm">工具</span> <span class="caret"></span>
+    </a>
+
+    <ul class="dropdown-menu tools" role="menu">
+    
+      <li class="dropdown-header">
+        <i class="fa fa-fw fa-user"></i> 用户工具      </li>
+      <li><a href="http://192.168.1.188/wiki/doku.php?id=wiki:dev:start:dataservice&amp;do=profile" class="action profile" rel="nofollow" title="更新个人信息">更新个人信息</a></li><li><a href="http://192.168.1.188/wiki/doku.php?id=wiki:dev:start:dataservice&amp;do=logout&amp;sectok=8f906d9a314d3523b816aee878fd8481" class="action logout" rel="nofollow" title="退出">退出</a></li>
+            <li class="divider" role="separator"></li>
+      
+    
+      <li class="dropdown-header">
+        <i class="fa fa-fw fa-wrench"></i> 站点工具      </li>
+      <li><a href="http://192.168.1.188/wiki/doku.php?id=wiki:dev:start:dataservice&amp;do=recent" class="action recent" accesskey="r" rel="nofollow" title="最近更改 [R]">最近更改</a></li><li><a href="http://192.168.1.188/wiki/doku.php?id=wiki:dev:start:dataservice&amp;do=media&amp;ns=wiki%3Adev%3Astart" class="action media" rel="nofollow" title="媒体管理器">媒体管理器</a></li><li><a href="http://192.168.1.188/wiki/doku.php?id=wiki:dev:start:dataservice&amp;do=index" class="action index" accesskey="x" rel="nofollow" title="网站地图 [X]">网站地图</a></li>
+            <li class="divider" role="separator"></li>
+      
+    
+      <li class="dropdown-header">
+        <i class="fa fa-fw fa-file"></i> 页面工具      </li>
+      <li><a href="http://192.168.1.188/wiki/doku.php?id=wiki:dev:start:dataservice&amp;do=edit" class="action edit" accesskey="e" rel="nofollow" title="编辑本页 [E]">编辑本页</a></li><li><a href="http://192.168.1.188/wiki/doku.php?id=wiki:dev:start:dataservice&amp;do=revisions" class="action revs" accesskey="o" rel="nofollow" title="修订记录 [O]">修订记录</a></li><li><a href="http://192.168.1.188/wiki/doku.php?id=wiki:dev:start:dataservice&amp;do=backlink" class="action backlink" rel="nofollow" title="反向链接">反向链接</a></li><li><a href="http://192.168.1.188/wiki/doku.php?id=wiki:dev:start:dataservice#dokuwiki__top" class="action top" accesskey="t" rel="nofollow" title="回到顶部 [T]">回到顶部</a></li>
+      
+        </ul>
+  </li>
+
+
+</ul>
+
+
+        <ul class="nav navbar-nav">
+
+          
+          
+        </ul>
+
+        <ul class="nav navbar-nav" id="dw__user_menu">
+  <li class="dropdown dropdown-large">
+
+    <a href="http://192.168.1.188/wiki/doku.php?id=wiki:dev:start:dataservice" class="dropdown-toggle" data-target="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+              <i class="fa fa-fw fa-user"></i>
+       <span class="hidden-lg hidden-md hidden-sm">bshi</span> <span class="caret"></span>
+    </a>
+
+    <ul class="dropdown-menu dropdown-menu-large" role="menu">
+
+      <li class="dropdown-header">
+        <h4 class="page-header">石斌 <small>bshi</small></h4>
+      </li>
+
+      <li class="open dropdown-row">
+
+        <ul class="dropdown-menu" style="min-width:64px">
+          <li class="dropdown-header">
+                          <i class="fa fa-fw fa-user fa-4x">&nbsp;</i>
+                      </li>
+        </ul>
+
+        <ul class="dropdown-menu">
+                                <li>
+              <a href="http://192.168.1.188/wiki/doku.php?id=user:bshi" title="Home-Page" rel="nofollow">
+                <i class="fa fa-fw fa-home"></i> Home-Page
+              </a>
+            </li>
+                      <li>
+            <a href="mailto:bshi@engyne.net" title="bshi@engyne.net">
+              <i class="fa fa-fw fa-envelope"></i> bshi@engyne.net            </a>
+          </li>
+                    <li><a href="http://192.168.1.188/wiki/doku.php?id=wiki:dev:start:dataservice&amp;do=profile" class="action profile" rel="nofollow" title="更新个人信息"><i class="fa fa-fw fa-refresh"></i> 更新个人信息</a></li>        </ul>
+
+      </li>
+      <li><a href="http://192.168.1.188/wiki/doku.php?id=wiki:dev:start:dataservice&amp;do=logout&amp;sectok=8f906d9a314d3523b816aee878fd8481" class="action logout" rel="nofollow" title="退出"><i class="fa fa-fw fa-power-off text-danger"></i> 退出</a></li>    </ul>
+  </li>
+</ul>
+
+      </div>
+
+    </div>
+  </div>
+</nav>
+
+      </header>
+
+  <div id="dokuwiki__top" class="dokuwiki container">
+
+    
+    <div id="dw__breadcrumbs" class="small">
+  <hr>
+    <div class="dw__youarehere">
+    <ol class="breadcrumb"><li>您在这里</li><li><a href="http://192.168.1.188/wiki/doku.php?id=start" title="start"><i class="fa fa-fw fa-home"></i></a></li><li><a href="http://192.168.1.188/wiki/doku.php?id=wiki:start" class="wikilink1" title="wiki:start">wiki</a></li><li><a href="http://192.168.1.188/wiki/doku.php?id=wiki:dev:start" class="wikilink1" title="wiki:dev:start">dev</a></li><li><a href="http://192.168.1.188/wiki/doku.php?id=wiki:dev:start" class="wikilink1" title="wiki:dev:start">start</a></li><li class="active"><span><a href="http://192.168.1.188/wiki/doku.php?id=wiki:dev:start:dataservice" class="wikilink1" title="wiki:dev:start:dataservice">dataservice</a></span></li></ol>  </div>
+      <hr>
+</div>
+
+    <p class="pageId text-right small">
+      <span class="label label-primary">wiki:dev:start:dataservice</span>    </p>
+
+    <div id="dw__msgarea" class="small">
+          </div>
+
+    <main class="main row" role="main">
+
+      
+      <!-- ********** CONTENT ********** -->
+      <article id="dokuwiki__content" class="container">
+
+        <div class="panel panel-default">
+          <div class="page panel-body">
+
+            <div id="dw__pagetools" class="hidden-print panel panel-default">
+  <div class="tools">
+    <ul class="nav nav-stacked nav-pills">
+      <li><a href="http://192.168.1.188/wiki/doku.php?id=wiki:dev:start:dataservice&amp;do=edit" class="action text-muted edit" accesskey="e" rel="nofollow" title="编辑本页 [E]"><i class="fa fa-fw fa-pencil-square-o"></i><span class="sr-only"> 编辑本页</span></a></li><li><a href="http://192.168.1.188/wiki/doku.php?id=wiki:dev:start:dataservice&amp;do=revisions" class="action text-muted revs" accesskey="o" rel="nofollow" title="修订记录 [O]"><i class="fa fa-fw fa-clock-o"></i><span class="sr-only"> 修订记录</span></a></li><li><a href="http://192.168.1.188/wiki/doku.php?id=wiki:dev:start:dataservice&amp;do=backlink" class="action text-muted backlink" rel="nofollow" title="反向链接"><i class="fa fa-fw fa-link"></i><span class="sr-only"> 反向链接</span></a></li>    </ul>
+  </div>
+</div>
+<div class="dw-page-row row"><div class="dw-content dw-content-with-toc col-sm-9">
+<h1 class="sectionedit1 page-header" id="dataservice">DataService<a class="anchorjs-link " href="http://192.168.1.188/wiki/doku.php?id=wiki:dev:start:dataservice#dataservice" aria-label="Anchor link for: dataservice" data-anchorjs-icon="" style="font-family: anchorjs-icons; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: normal; line-height: 1; padding-left: 0.375em;"></a></h1>
+<div class="level1">
+
+<p>
+192.168.1.188服务器
+</p>
+
+</div>
+<div class="secedit editbutton_section editbutton_1"><form class="btn_secedit form-inline" method="post" action="http://192.168.1.188/wiki/doku.php"><div class="no"><input type="hidden" name="do" value="edit"><input type="hidden" name="rev" value="1473417194"><input type="hidden" name="summary" value="[DataService] "><input type="hidden" name="target" value="section"><input type="hidden" name="range" value="1-52"><input type="hidden" name="id" value="wiki:dev:start:dataservice"><button type="submit" title="DataService" class="btn btn-default btn-xs">编辑</button></div></form></div>
+<h2 class="sectionedit2 page-header" id="bind绑定接口">bind绑定接口<a class="anchorjs-link " href="http://192.168.1.188/wiki/doku.php?id=wiki:dev:start:dataservice#bind绑定接口" aria-label="Anchor link for: bind绑定接口" data-anchorjs-icon="" style="font-family: anchorjs-icons; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: normal; line-height: 1; padding-left: 0.375em;"></a></h2>
+<div class="level2">
+
+<p>
+方法说明：将指定username的客服和客服类型的_index绑定起来
+</p>
+
+<p>
+方法路径：<a href="http://192.168.1.188:8080/DataService/services/AccountBindService/bind" class="urlextern" title="http://192.168.1.188:8080/DataService/services/AccountBindService/bind" rel="nofollow">http://192.168.1.188:8080/DataService/services/AccountBindService/bind</a>
+</p>
+
+<p>
+参数示例：
+</p>
+<ul class="fix-media-list-overlap">
+<li class="level1"><div class="li"> username:_webadmin-1-0E3C1B4A-FB15-8F8B-CEF1-72B5FDD49913</div>
+</li>
+<li class="level2"><div class="li"> _index:3</div>
+</li>
+</ul>
+
+<p>
+返回类型：
+</p>
+<ul class="fix-media-list-overlap">
+<li class="level1"><div class="li">成功：<code>{
+  “result”: “SUCCESS”
+}</code></div>
+</li>
+</ul>
+<ul class="fix-media-list-overlap">
+<li class="level1"><div class="li">失败:<code>{
+  “result”: “FAIL”
+}</code></div>
+</li>
+</ul>
+
+</div>
+<div class="secedit editbutton_section editbutton_2"><form class="btn_secedit form-inline" method="post" action="http://192.168.1.188/wiki/doku.php"><div class="no"><input type="hidden" name="do" value="edit"><input type="hidden" name="rev" value="1473417194"><input type="hidden" name="summary" value="[bind绑定接口] "><input type="hidden" name="target" value="section"><input type="hidden" name="range" value="53-440"><input type="hidden" name="id" value="wiki:dev:start:dataservice"><button type="submit" title="bind绑定接口" class="btn btn-default btn-xs">编辑</button></div></form></div>
+<h2 class="sectionedit3 page-header" id="setdefault设置默认客服接口">setDefault设置默认客服接口<a class="anchorjs-link " href="http://192.168.1.188/wiki/doku.php?id=wiki:dev:start:dataservice#setdefault设置默认客服接口" aria-label="Anchor link for: setdefault设置默认客服接口" data-anchorjs-icon="" style="font-family: anchorjs-icons; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: normal; line-height: 1; padding-left: 0.375em;"></a></h2>
+<div class="level2">
+
+<p>
+方法说明：设置指定username的客服为默认客服
+</p>
+
+<p>
+方法路径：<a href="http://192.168.1.188:8080/DataService/services/AccountDefaultService/setDefault" class="urlextern" title="http://192.168.1.188:8080/DataService/services/AccountDefaultService/setDefault" rel="nofollow">http://192.168.1.188:8080/DataService/services/AccountDefaultService/setDefault</a>
+</p>
+
+<p>
+参数示例：
+</p>
+<ul class="fix-media-list-overlap">
+<li class="level1"><div class="li"> username：_webadmin-1-0E3C1B4A-FB15-8F8B-CEF1-72B5FDD49913</div>
+</li>
+</ul>
+
+<p>
+返回类型：
+</p>
+<ul class="fix-media-list-overlap">
+<li class="level1"><div class="li">成功：<code>{
+  “result”: “SUCCESS”
+}</code></div>
+</li>
+<li class="level1"><div class="li">失败:<code>{
+  “result”: “FAIL”
+}</code></div>
+</li>
+</ul>
+
+</div>
+<div class="secedit editbutton_section editbutton_3"><form class="btn_secedit form-inline" method="post" action="http://192.168.1.188/wiki/doku.php"><div class="no"><input type="hidden" name="do" value="edit"><input type="hidden" name="rev" value="1473417194"><input type="hidden" name="summary" value="[setDefault设置默认客服接口] "><input type="hidden" name="target" value="section"><input type="hidden" name="range" value="441-822"><input type="hidden" name="id" value="wiki:dev:start:dataservice"><button type="submit" title="setDefault设置默认客服接口" class="btn btn-default btn-xs">编辑</button></div></form></div>
+<h2 class="sectionedit4 page-header" id="客服类型add接口">客服类型add接口<a class="anchorjs-link " href="http://192.168.1.188/wiki/doku.php?id=wiki:dev:start:dataservice#客服类型add接口" aria-label="Anchor link for: 客服类型add接口" data-anchorjs-icon="" style="font-family: anchorjs-icons; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: normal; line-height: 1; padding-left: 0.375em;"></a></h2>
+<div class="level2">
+
+<p>
+方法说明：增加一种客服类型到客服类型字典表中
+</p>
+
+<p>
+方法路径：<a href="http://192.168.1.188:8080/DataService/services/AccountTypeService/add" class="urlextern" title="http://192.168.1.188:8080/DataService/services/AccountTypeService/add" rel="nofollow">http://192.168.1.188:8080/DataService/services/AccountTypeService/add</a>
+</p>
+
+<p>
+参数示例：
+</p>
+<ul class="fix-media-list-overlap">
+<li class="level1"><div class="li"> name:abc</div>
+</li>
+</ul>
+
+<p>
+返回类型：
+</p>
+<ul class="fix-media-list-overlap">
+<li class="level1"><div class="li"> 成功：<code>{
+  “result”: “SUCCESS”,
+  “data”: []
+}</code></div>
+</li>
+<li class="level1"><div class="li"> 失败:<code>{
+  “result”: “FAIL”,
+  “data”: []
+}</code></div>
+</li>
+</ul>
+
+</div>
+<div class="secedit editbutton_section editbutton_4"><form class="btn_secedit form-inline" method="post" action="http://192.168.1.188/wiki/doku.php"><div class="no"><input type="hidden" name="do" value="edit"><input type="hidden" name="rev" value="1473417194"><input type="hidden" name="summary" value="[客服类型add接口] "><input type="hidden" name="target" value="section"><input type="hidden" name="range" value="823-1167"><input type="hidden" name="id" value="wiki:dev:start:dataservice"><button type="submit" title="客服类型add接口" class="btn btn-default btn-xs">编辑</button></div></form></div>
+<h2 class="sectionedit5 page-header" id="客服类型delete接口">客服类型delete接口<a class="anchorjs-link " href="http://192.168.1.188/wiki/doku.php?id=wiki:dev:start:dataservice#客服类型delete接口" aria-label="Anchor link for: 客服类型delete接口" data-anchorjs-icon="" style="font-family: anchorjs-icons; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: normal; line-height: 1; padding-left: 0.375em;"></a></h2>
+<div class="level2">
+
+<p>
+方法说明：删除指定_index的客服类型
+</p>
+
+<p>
+方法路径：<a href="http://192.168.1.188:8080/DataService/services/AccountTypeService/delete" class="urlextern" title="http://192.168.1.188:8080/DataService/services/AccountTypeService/delete" rel="nofollow">http://192.168.1.188:8080/DataService/services/AccountTypeService/delete</a>
+</p>
+
+<p>
+参数示例：
+</p>
+<ul class="fix-media-list-overlap">
+<li class="level1"><div class="li"> _index:9</div>
+</li>
+</ul>
+
+<p>
+返回类型：
+</p>
+<ul class="fix-media-list-overlap">
+<li class="level1"><div class="li"> 成功：<code>{
+  “result”: “SUCCESS”,
+  “data”: []
+}</code></div>
+</li>
+<li class="level1"><div class="li"> 失败:<code>{
+  “result”: “FAIL”,
+  “data”: []
+}</code></div>
+</li>
+</ul>
+
+</div>
+<div class="secedit editbutton_section editbutton_5"><form class="btn_secedit form-inline" method="post" action="http://192.168.1.188/wiki/doku.php"><div class="no"><input type="hidden" name="do" value="edit"><input type="hidden" name="rev" value="1473417194"><input type="hidden" name="summary" value="[客服类型delete接口] "><input type="hidden" name="target" value="section"><input type="hidden" name="range" value="1168-1499"><input type="hidden" name="id" value="wiki:dev:start:dataservice"><button type="submit" title="客服类型delete接口" class="btn btn-default btn-xs">编辑</button></div></form></div>
+<h2 class="sectionedit6 page-header" id="客服类型更新update接口">客服类型更新update接口<a class="anchorjs-link " href="http://192.168.1.188/wiki/doku.php?id=wiki:dev:start:dataservice#客服类型更新update接口" aria-label="Anchor link for: 客服类型更新update接口" data-anchorjs-icon="" style="font-family: anchorjs-icons; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: normal; line-height: 1; padding-left: 0.375em;"></a></h2>
+<div class="level2">
+
+<p>
+方法说明：更新指定_index的客服类型名称
+</p>
+
+<p>
+方法路径：<a href="http://192.168.1.188:8080/DataService/services/AccountTypeService/update" class="urlextern" title="http://192.168.1.188:8080/DataService/services/AccountTypeService/update" rel="nofollow">http://192.168.1.188:8080/DataService/services/AccountTypeService/update</a>
+</p>
+
+<p>
+参数示例：
+</p>
+<ul class="fix-media-list-overlap">
+<li class="level1"><div class="li"> _index:8</div>
+</li>
+<li class="level1"><div class="li"> name:abc</div>
+</li>
+</ul>
+
+<p>
+返回类型：
+</p>
+<ul class="fix-media-list-overlap">
+<li class="level1"><div class="li"> 成功：<code>{
+  “result”: “SUCCESS”,
+  “data”: []
+}</code></div>
+</li>
+<li class="level1"><div class="li"> 失败:<code>{
+  “result”: “FAIL”,
+  “data”: []
+}</code></div>
+</li>
+</ul>
+
+</div>
+<div class="secedit editbutton_section editbutton_6"><form class="btn_secedit form-inline" method="post" action="http://192.168.1.188/wiki/doku.php"><div class="no"><input type="hidden" name="do" value="edit"><input type="hidden" name="rev" value="1473417194"><input type="hidden" name="summary" value="[客服类型更新update接口] "><input type="hidden" name="target" value="section"><input type="hidden" name="range" value="1500-1858"><input type="hidden" name="id" value="wiki:dev:start:dataservice"><button type="submit" title="客服类型更新update接口" class="btn btn-default btn-xs">编辑</button></div></form></div>
+<h2 class="sectionedit7 page-header" id="查询接口query">查询接口query<a class="anchorjs-link " href="http://192.168.1.188/wiki/doku.php?id=wiki:dev:start:dataservice#查询接口query" aria-label="Anchor link for: 查询接口query" data-anchorjs-icon="" style="font-family: anchorjs-icons; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: normal; line-height: 1; padding-left: 0.375em;"></a></h2>
+<div class="level2">
+
+<p>
+方法说明：根据传入的参数查询指定的客服类型，如果不传任何参数默认查询所有
+</p>
+
+<p>
+方法路径：<a href="http://192.168.1.188:8080/DataService/services/AccountTypeService/query" class="urlextern" title="http://192.168.1.188:8080/DataService/services/AccountTypeService/query" rel="nofollow">http://192.168.1.188:8080/DataService/services/AccountTypeService/query</a>
+</p>
+
+<p>
+参数示例1：
+</p>
+
+<p>
+返回类型1：
+</p>
+<pre class="code">{
+"result": "SUCCESS",
+"data": [
+  {
+    "account_type_name": {
+      "zh": "售前",
+      "en": "before sale"
+    },
+    "_index": "1"
+  },
+  {
+    "account_type_name": {
+      "zh": "售后",
+      "en": "after sale"
+    },
+    "_index": "2"
+  },
+  {
+    "account_type_name": "{\"zh\",\"不区分\",\"en\":\"all the same\"}",
+    "_index": "3"
+  },
+  {
+    "account_type_name": "abs",
+    "_index": "8"
+  }
+]
+}''</pre>
+
+<p>
+参数示例2：
+</p>
+<ul class="fix-media-list-overlap">
+<li class="level1"><div class="li"> _index:1</div>
+</li>
+</ul>
+
+<p>
+返回类型2:
+</p>
+<pre class="code">{
+"result": "SUCCESS",
+"data": [
+  {
+    "account_type_name": {
+      "zh": "售前",
+      "en": "before sale"
+    },
+    "_index": "1"
+  }
+]
+}</pre>
+
+</div>
+<div class="secedit editbutton_section editbutton_7"><form class="btn_secedit form-inline" method="post" action="http://192.168.1.188/wiki/doku.php"><div class="no"><input type="hidden" name="do" value="edit"><input type="hidden" name="rev" value="1473417194"><input type="hidden" name="summary" value="[查询接口query] "><input type="hidden" name="target" value="section"><input type="hidden" name="range" value="1859-2810"><input type="hidden" name="id" value="wiki:dev:start:dataservice"><button type="submit" title="查询接口query" class="btn btn-default btn-xs">编辑</button></div></form></div>
+<h2 class="sectionedit8 page-header" id="一维数据统计接口">一维数据统计接口<a class="anchorjs-link " href="http://192.168.1.188/wiki/doku.php?id=wiki:dev:start:dataservice#一维数据统计接口" aria-label="Anchor link for: 一维数据统计接口" data-anchorjs-icon="" style="font-family: anchorjs-icons; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: normal; line-height: 1; padding-left: 0.375em;"></a></h2>
+<div class="level2">
+
+<p>
+方法说明：根据指定的参数执行指定的查询任务
+</p>
+
+<p>
+方法路径：<a href="http://192.168.1.188:8080/DataService/services/OneDimensionService/getOneDimensionQuery" class="urlextern" title="http://192.168.1.188:8080/DataService/services/OneDimensionService/getOneDimensionQuery" rel="nofollow">http://192.168.1.188:8080/DataService/services/OneDimensionService/getOneDimensionQuery</a>
+</p>
+
+<p>
+参数示例：
+</p>
+<ul class="fix-media-list-overlap">
+<li class="level1"><div class="li">table:track<em>user</em>agent
+</div>
+</li>
+<li class="level1"><div class="li">xaxis:os_name
+</div>
+</li>
+<li class="level1"><div class="li">ymode:count
+</div>
+</li>
+<li class="level1"><div class="li">target:_index
+</div>
+</li>
+<li class="level1"><div class="li">filter:city='北京'(可选参数)</div>
+</li>
+</ul>
+
+<p>
+返回类型：
+</p>
+<pre class="code">{
+"result": "SUCCESS",
+"data": [
+  [
+    "Android",
+    "7"
+  ],
+  [
+    "iOS",
+    "28"
+  ],
+  [
+    "Windows",
+    "26"
+  ]
+]
+}</pre>
+
+</div>
+<div class="secedit editbutton_section editbutton_8"><form class="btn_secedit form-inline" method="post" action="http://192.168.1.188/wiki/doku.php"><div class="no"><input type="hidden" name="do" value="edit"><input type="hidden" name="rev" value="1473417194"><input type="hidden" name="summary" value="[一维数据统计接口] "><input type="hidden" name="target" value="section"><input type="hidden" name="range" value="2811-3339"><input type="hidden" name="id" value="wiki:dev:start:dataservice"><button type="submit" title="一维数据统计接口" class="btn btn-default btn-xs">编辑</button></div></form></div>
+<h2 class="sectionedit9 page-header" id="一维数据分段统计接口">一维数据分段统计接口<a class="anchorjs-link " href="http://192.168.1.188/wiki/doku.php?id=wiki:dev:start:dataservice#一维数据分段统计接口" aria-label="Anchor link for: 一维数据分段统计接口" data-anchorjs-icon="" style="font-family: anchorjs-icons; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: normal; line-height: 1; padding-left: 0.375em;"></a></h2>
+<div class="level2">
+
+<p>
+ 方法说明：根据指定的时间段查询指定的内容
+</p>
+
+<p>
+ 方法路径：<a href="http://192.168.1.188:8080/DataService/services/SubDimensionService/getSubDimensionQuery" class="urlextern" title="http://192.168.1.188:8080/DataService/services/SubDimensionService/getSubDimensionQuery" rel="nofollow">http://192.168.1.188:8080/DataService/services/SubDimensionService/getSubDimensionQuery</a>
+</p>
+
+<p>
+ 参数示例：
+</p>
+<ul class="fix-media-list-overlap">
+<li class="level1"><div class="li"> table:track<em>user</em>agent</div>
+</li>
+<li class="level2"><div class="li"> xaxis:UNIX<em>TIMESTAMP(created</em>time)</div>
+</li>
+<li class="level2"><div class="li"> ymode:count</div>
+</li>
+<li class="level2"><div class="li"> target:_index</div>
+</li>
+<li class="level2"><div class="li"> start: 1469980800</div>
+</li>
+<li class="level2"><div class="li"> end: 1472659200</div>
+</li>
+<li class="level2"><div class="li"> step:86400</div>
+</li>
+</ul>
+
+<p>
+返回类型：
+</p>
+<pre class="code">{
+"result": "SUCCESS",
+"data": [
+  [
+    "1469980800",
+    "1470067200",
+    "0"
+  ],
+  [
+    "1470067200",
+    "1470153600",
+    "0"
+  ],
+  [
+    "1470153600",
+    "1470240000",
+    "0"
+  ],
+  [
+    "1470240000",
+    "1470326400",
+    "0"
+  ],
+  [
+    "1470326400",
+    "1470412800",
+    "0"
+  ],
+  [
+    "1470412800",
+    "1470499200",
+    "0"
+  ],
+  [
+    "1470499200",
+    "1470585600",
+    "0"
+  ],
+  [
+    "1470585600",
+    "1470672000",
+    "0"
+  ],
+  [
+    "1470672000",
+    "1470758400",
+    "0"
+  ],
+  [
+    "1470758400",
+    "1470844800",
+    "0"
+  ],
+  [
+    "1470844800",
+    "1470931200",
+    "0"
+  ],
+  [
+    "1470931200",
+    "1471017600",
+    "0"
+  ],
+  [
+    "1471017600",
+    "1471104000",
+    "0"
+  ],
+  [
+    "1471104000",
+    "1471190400",
+    "0"
+  ],
+  [
+    "1471190400",
+    "1471276800",
+    "0"
+  ],
+  [
+    "1471276800",
+    "1471363200",
+    "0"
+  ],
+  [
+    "1471363200",
+    "1471449600",
+    "0"
+  ],
+  [
+    "1471449600",
+    "1471536000",
+    "0"
+  ],
+  [
+    "1471536000",
+    "1471622400",
+    "0"
+  ],
+  [
+    "1471622400",
+    "1471708800",
+    "0"
+  ],
+  [
+    "1471708800",
+    "1471795200",
+    "28"
+  ],
+  [
+    "1471795200",
+    "1471881600",
+    "6"
+  ],
+  [
+    "1471881600",
+    "1471968000",
+    "2"
+  ],
+  [
+    "1471968000",
+    "1472054400",
+    "14"
+  ],
+  [
+    "1472054400",
+    "1472140800",
+    "11"
+  ],
+  [
+    "1472140800",
+    "1472227200",
+    "0"
+  ],
+  [
+    "1472227200",
+    "1472313600",
+    "0"
+  ],
+  [
+    "1472313600",
+    "1472400000",
+    "0"
+  ],
+  [
+    "1472400000",
+    "1472486400",
+    "0"
+  ],
+  [
+    "1472486400",
+    "1472572800",
+    "0"
+  ],
+  [
+    "1472572800",
+    "1472659200",
+    "0"
+  ]
+]
+}</pre>
+
+</div>
+<div class="secedit editbutton_section editbutton_9"><form class="btn_secedit form-inline" method="post" action="http://192.168.1.188/wiki/doku.php"><div class="no"><input type="hidden" name="do" value="edit"><input type="hidden" name="rev" value="1473417194"><input type="hidden" name="summary" value="[一维数据分段统计接口] "><input type="hidden" name="target" value="section"><input type="hidden" name="range" value="3340-5766"><input type="hidden" name="id" value="wiki:dev:start:dataservice"><button type="submit" title="一维数据分段统计接口" class="btn btn-default btn-xs">编辑</button></div></form></div>
+<h2 class="sectionedit10 page-header" id="通话记录查询接口">通话记录查询接口<a class="anchorjs-link " href="http://192.168.1.188/wiki/doku.php?id=wiki:dev:start:dataservice#通话记录查询接口" aria-label="Anchor link for: 通话记录查询接口" data-anchorjs-icon="" style="font-family: anchorjs-icons; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: normal; line-height: 1; padding-left: 0.375em;"></a></h2>
+<div class="level2">
+
+<p>
+方法说明：根据给定的clientid查询通话记录
+</p>
+
+<p>
+方法路径：<a href="http://192.168.1.188:8080/DataService/services/TelLogService/getCallLog" class="urlextern" title="http://192.168.1.188:8080/DataService/services/TelLogService/getCallLog" rel="nofollow">http://192.168.1.188:8080/DataService/services/TelLogService/getCallLog</a>
+</p>
+
+<p>
+参数示例：
+</p>
+<ul class="fix-media-list-overlap">
+<li class="level1"><div class="li"> clientid：027C66DA-5881-274E-3A58-D96E21C56DDE</div>
+</li>
+</ul>
+
+<p>
+返回类型：
+</p>
+<pre class="code">{
+"result": "SUCCESS",
+"data": [
+  {
+    "clientid": "027C66DA-5881-274E-3A58-D96E21C56DDE",
+    "caller": "",
+    "username": "_webadmin-1-24010F7D-E330-8F59-22C9-5E7437645CCD",
+    "time": "1472784437",
+    "count": "1",
+    "callee": "13163359533"
+  },
+  {
+    "clientid": "027C66DA-5881-274E-3A58-D96E21C56DDE",
+    "caller": "",
+    "username": "_webadmin-1-24010F7D-E330-8F59-22C9-5E7437645CCD",
+    "time": "1472784552",
+    "count": "1",
+    "callee": "13163359533"
+  },
+  {
+    "clientid": "027C66DA-5881-274E-3A58-D96E21C56DDE",
+    "caller": "13466326832",
+    "username": "_webadmin-1-admin",
+    "time": "1473127724",
+    "count": "1",
+    "callee": "13163359533"
+  }
+]
+}</pre>
+
+</div>
+<div class="secedit editbutton_section editbutton_10"><form class="btn_secedit form-inline" method="post" action="http://192.168.1.188/wiki/doku.php"><div class="no"><input type="hidden" name="do" value="edit"><input type="hidden" name="rev" value="1473417194"><input type="hidden" name="summary" value="[通话记录查询接口] "><input type="hidden" name="target" value="section"><input type="hidden" name="range" value="5767-6782"><input type="hidden" name="id" value="wiki:dev:start:dataservice"><button type="submit" title="通话记录查询接口" class="btn btn-default btn-xs">编辑</button></div></form></div>
+<h2 class="sectionedit11 page-header" id="打电话接口">打电话接口<a class="anchorjs-link " href="http://192.168.1.188/wiki/doku.php?id=wiki:dev:start:dataservice#打电话接口" aria-label="Anchor link for: 打电话接口" data-anchorjs-icon="" style="font-family: anchorjs-icons; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: normal; line-height: 1; padding-left: 0.375em;"></a></h2>
+<div class="level2">
+
+<p>
+方法说明：根据给定的caller和callee，先给caller打，接通之后给callee打
+</p>
+
+<p>
+方法路径：<a href="http://192.168.1.188:8080/DataService/services/CallService/start" class="urlextern" title="http://192.168.1.188:8080/DataService/services/CallService/start" rel="nofollow">http://192.168.1.188:8080/DataService/services/CallService/start</a>
+</p>
+
+<p>
+参数示例：
+</p>
+<ul class="fix-media-list-overlap">
+<li class="level1"><div class="li">spid:559228</div>
+</li>
+<li class="level1"><div class="li">appid:343</div>
+</li>
+<li class="level1"><div class="li">caller:13163359533</div>
+</li>
+<li class="level1"><div class="li">callee:15627563706</div>
+</li>
+</ul>
+
+<p>
+返回类型：
+</p>
+<pre class="code">{
+"result": "SUCCESS"
+}</pre>
+
+</div>
+<div class="secedit editbutton_section editbutton_11"><form class="btn_secedit form-inline" method="post" action="http://192.168.1.188/wiki/doku.php"><div class="no"><input type="hidden" name="do" value="edit"><input type="hidden" name="rev" value="1473417194"><input type="hidden" name="summary" value="[打电话接口] "><input type="hidden" name="target" value="section"><input type="hidden" name="range" value="6783-7130"><input type="hidden" name="id" value="wiki:dev:start:dataservice"><button type="submit" title="打电话接口" class="btn btn-default btn-xs">编辑</button></div></form></div>
+<h2 class="sectionedit12 page-header" id="发送验证码接口">发送验证码接口<a class="anchorjs-link " href="http://192.168.1.188/wiki/doku.php?id=wiki:dev:start:dataservice#发送验证码接口" aria-label="Anchor link for: 发送验证码接口" data-anchorjs-icon="" style="font-family: anchorjs-icons; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: normal; line-height: 1; padding-left: 0.375em;"></a></h2>
+<div class="level2">
+
+<p>
+方法说明：向指定的phoneNumber发送验证码
+</p>
+
+<p>
+方法路径：<a href="http://192.168.1.188:8080/DataService/services/SendVerification/sendVerificationCode" class="urlextern" title="http://192.168.1.188:8080/DataService/services/SendVerification/sendVerificationCode" rel="nofollow">http://192.168.1.188:8080/DataService/services/SendVerification/sendVerificationCode</a>
+</p>
+
+<p>
+参数示例：
+</p>
+<ul class="fix-media-list-overlap">
+<li class="level1"><div class="li"> phoneNumber：13163359533</div>
+</li>
+</ul>
+
+<p>
+返回类型：
+</p>
+<pre class="code">{
+"resutl": "SUCCESS"
+}</pre>
+
+</div>
+<div class="secedit editbutton_section editbutton_12"><form class="btn_secedit form-inline" method="post" action="http://192.168.1.188/wiki/doku.php"><div class="no"><input type="hidden" name="do" value="edit"><input type="hidden" name="rev" value="1473417194"><input type="hidden" name="summary" value="[发送验证码接口] "><input type="hidden" name="target" value="section"><input type="hidden" name="range" value="7131-7418"><input type="hidden" name="id" value="wiki:dev:start:dataservice"><button type="submit" title="发送验证码接口" class="btn btn-default btn-xs">编辑</button></div></form></div>
+<h2 class="sectionedit13 page-header" id="查询消息发送次数接口">查询消息发送次数接口<a class="anchorjs-link " href="http://192.168.1.188/wiki/doku.php?id=wiki:dev:start:dataservice#查询消息发送次数接口" aria-label="Anchor link for: 查询消息发送次数接口" data-anchorjs-icon="" style="font-family: anchorjs-icons; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: normal; line-height: 1; padding-left: 0.375em;"></a></h2>
+<div class="level2">
+
+<p>
+方法说明：查询模板消息发送次数
+</p>
+
+<p>
+方法路径：<a href="http://192.168.1.188:8080/DataService/services/TemplateService/getTemplateQuery" class="urlextern" title="http://192.168.1.188:8080/DataService/services/TemplateService/getTemplateQuery" rel="nofollow">http://192.168.1.188:8080/DataService/services/TemplateService/getTemplateQuery</a>
+</p>
+
+<p>
+参数示例：ids：[89,121]
+</p>
+
+<p>
+返回类型：
+</p>
+<pre class="code">{
+"total": 2,
+"result": "SUCCESS",
+"list": [
+  {
+    "count": 1,
+    "_index": 89
+  },
+  {
+    "count": 340,
+    "_index": 121
+  }
+]
+}</pre>
+
+</div>
+<div class="secedit editbutton_section editbutton_13"><form class="btn_secedit form-inline" method="post" action="http://192.168.1.188/wiki/doku.php"><div class="no"><input type="hidden" name="do" value="edit"><input type="hidden" name="rev" value="1473417194"><input type="hidden" name="summary" value="[查询消息发送次数接口] "><input type="hidden" name="target" value="section"><input type="hidden" name="range" value="7419-7818"><input type="hidden" name="id" value="wiki:dev:start:dataservice"><button type="submit" title="查询消息发送次数接口" class="btn btn-default btn-xs">编辑</button></div></form></div>
+<h2 class="sectionedit14 page-header" id="验证验证码接口">验证验证码接口<a class="anchorjs-link " href="http://192.168.1.188/wiki/doku.php?id=wiki:dev:start:dataservice#验证验证码接口" aria-label="Anchor link for: 验证验证码接口" data-anchorjs-icon="" style="font-family: anchorjs-icons; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: normal; line-height: 1; padding-left: 0.375em;"></a></h2>
+<div class="level2">
+
+<p>
+方法说明：根据给定参数验证验证码以及时间是否正确
+</p>
+
+<p>
+方法路径：<a href="http://192.168.1.188:8080/DataService/services/Verification/checkVerifyCode" class="urlextern" title="http://192.168.1.188:8080/DataService/services/Verification/checkVerifyCode" rel="nofollow">http://192.168.1.188:8080/DataService/services/Verification/checkVerifyCode</a>
+</p>
+
+<p>
+参数示例：
+</p>
+<ul class="fix-media-list-overlap">
+<li class="level1"><div class="li">phoneNumber:13163359533</div>
+</li>
+<li class="level1"><div class="li">code:667923</div>
+</li>
+</ul>
+
+<p>
+返回类型：
+</p>
+<ul class="fix-media-list-overlap">
+<li class="level1"><div class="li"> 成功{</div>
+</li>
+</ul>
+
+<p>
+  “result”: “SUCCESS”
+}
+</p>
+<ul class="fix-media-list-overlap">
+<li class="level1"><div class="li"> 失败{</div>
+</li>
+</ul>
+
+<p>
+  “result”: “FAIL”
+}
+</p>
+
+</div>
+<div class="secedit editbutton_section editbutton_14"><form class="btn_secedit form-inline" method="post" action="http://192.168.1.188/wiki/doku.php"><div class="no"><input type="hidden" name="do" value="edit"><input type="hidden" name="rev" value="1473417194"><input type="hidden" name="summary" value="[验证验证码接口] "><input type="hidden" name="target" value="section"><input type="hidden" name="range" value="7819-8168"><input type="hidden" name="id" value="wiki:dev:start:dataservice"><button type="submit" title="验证验证码接口" class="btn btn-default btn-xs">编辑</button></div></form></div>
+<h2 class="sectionedit15 page-header" id="查询规则发送次数接口">查询规则发送次数接口<a class="anchorjs-link " href="http://192.168.1.188/wiki/doku.php?id=wiki:dev:start:dataservice#查询规则发送次数接口" aria-label="Anchor link for: 查询规则发送次数接口" data-anchorjs-icon="" style="font-family: anchorjs-icons; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: normal; line-height: 1; padding-left: 0.375em;"></a></h2>
+<div class="level2">
+
+<p>
+方法说明：查询指定的规则发送的次数
+</p>
+
+<p>
+方法路径：<a href="http://192.168.1.188:8080/DataService/services/RuleService/getRuleQuery" class="urlextern" title="http://192.168.1.188:8080/DataService/services/RuleService/getRuleQuery" rel="nofollow">http://192.168.1.188:8080/DataService/services/RuleService/getRuleQuery</a>
+</p>
+
+<p>
+参数示例：
+</p>
+<ul class="fix-media-list-overlap">
+<li class="level1"><div class="li"> ids:[3,9]</div>
+</li>
+</ul>
+
+<p>
+返回类型：
+</p>
+<pre class="code">{
+"total": 2,
+"result": "SUCCESS",
+"list": [
+  {
+    "count": 343,
+    "_index": 3
+  },
+  {
+    "count": 338,
+    "_index": 9
+  }
+]
+}</pre>
+
+</div>
+<div class="secedit editbutton_section editbutton_15"><form class="btn_secedit form-inline" method="post" action="http://192.168.1.188/wiki/doku.php"><div class="no"><input type="hidden" name="do" value="edit"><input type="hidden" name="rev" value="1473417194"><input type="hidden" name="summary" value="[查询规则发送次数接口] "><input type="hidden" name="target" value="section"><input type="hidden" name="range" value="8169-8563"><input type="hidden" name="id" value="wiki:dev:start:dataservice"><button type="submit" title="查询规则发送次数接口" class="btn btn-default btn-xs">编辑</button></div></form></div>
+<h2 class="sectionedit16 page-header" id="投票统计接口">投票统计接口<a class="anchorjs-link " href="http://192.168.1.188/wiki/doku.php?id=wiki:dev:start:dataservice#投票统计接口" aria-label="Anchor link for: 投票统计接口" data-anchorjs-icon="" style="font-family: anchorjs-icons; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: normal; line-height: 1; padding-left: 0.375em;"></a></h2>
+<div class="level2">
+
+<p>
+方法说明：根据指定的投票模板_index 查询出赞成否定数
+</p>
+
+<p>
+方法路径：<a href="http://192.168.1.188:8080/DataService/services/VoteService/getVoteQuery" class="urlextern" title="http://192.168.1.188:8080/DataService/services/VoteService/getVoteQuery" rel="nofollow">http://192.168.1.188:8080/DataService/services/VoteService/getVoteQuery</a>
+</p>
+
+<p>
+参数示例：
+</p>
+<ul class="fix-media-list-overlap">
+<li class="level1"><div class="li"> ids：[141,143]</div>
+</li>
+</ul>
+
+<p>
+返回类型：
+</p>
+<pre class="code">{
+"total": 2,
+"result": "SUCCESS",
+"list": [
+  {
+    "tempindex": 141,
+    "opposition": "1",
+    "approval": "1"
+  },
+  {
+    "tempindex": 143,
+    "opposition": "1",
+    "approval": "8"
+  }
+]
+}</pre>
+
+</div>
+<div class="secedit editbutton_section editbutton_16"><form class="btn_secedit form-inline" method="post" action="http://192.168.1.188/wiki/doku.php"><div class="no"><input type="hidden" name="do" value="edit"><input type="hidden" name="rev" value="1473417194"><input type="hidden" name="summary" value="[投票统计接口] "><input type="hidden" name="target" value="section"><input type="hidden" name="range" value="8564-"><input type="hidden" name="id" value="wiki:dev:start:dataservice"><button type="submit" title="投票统计接口" class="btn btn-default btn-xs">编辑</button></div></form></div>
+</div><div class="dw-toc hidden-print col-sm-3"><!-- TOC START -->
+<nav id="dokuwiki__toc" role="navigation" class="small affix-top" style="background-color: rgb(255, 255, 255);">
+<h6 data-toggle="collapse" data-target="#dokuwiki__toc .toc-body" title="目录" class="toc-title"><i class="fa fa-fw fa-th-list"></i> <span>目录</span> <i class="caret"></i></h6>
+<div class="toc-body collapse in" style="width: 100%;" aria-expanded="true">
+
+<ul class="nav toc" style="max-height: 464px; overflow-y: scroll;">
+<li class="level1"><a href="http://192.168.1.188/wiki/doku.php?id=wiki:dev:start:dataservice#dataservice" style="color: rgb(102, 102, 102);">DataService</a>
+<ul class="nav toc">
+<li class="level2"><a href="http://192.168.1.188/wiki/doku.php?id=wiki:dev:start:dataservice#bind绑定接口" style="color: rgb(102, 102, 102);">bind绑定接口</a></li>
+<li class="level2"><a href="http://192.168.1.188/wiki/doku.php?id=wiki:dev:start:dataservice#setdefault设置默认客服接口" style="color: rgb(102, 102, 102);">setDefault设置默认客服接口</a></li>
+<li class="level2"><a href="http://192.168.1.188/wiki/doku.php?id=wiki:dev:start:dataservice#客服类型add接口" style="color: rgb(102, 102, 102);">客服类型add接口</a></li>
+<li class="level2"><a href="http://192.168.1.188/wiki/doku.php?id=wiki:dev:start:dataservice#客服类型delete接口" style="color: rgb(102, 102, 102);">客服类型delete接口</a></li>
+<li class="level2"><a href="http://192.168.1.188/wiki/doku.php?id=wiki:dev:start:dataservice#客服类型更新update接口" style="color: rgb(102, 102, 102);">客服类型更新update接口</a></li>
+<li class="level2"><a href="http://192.168.1.188/wiki/doku.php?id=wiki:dev:start:dataservice#查询接口query" style="color: rgb(102, 102, 102);">查询接口query</a></li>
+<li class="level2"><a href="http://192.168.1.188/wiki/doku.php?id=wiki:dev:start:dataservice#一维数据统计接口" style="color: rgb(102, 102, 102);">一维数据统计接口</a></li>
+<li class="level2"><a href="http://192.168.1.188/wiki/doku.php?id=wiki:dev:start:dataservice#一维数据分段统计接口" style="color: rgb(102, 102, 102);">一维数据分段统计接口</a></li>
+<li class="level2"><a href="http://192.168.1.188/wiki/doku.php?id=wiki:dev:start:dataservice#通话记录查询接口" style="color: rgb(102, 102, 102);">通话记录查询接口</a></li>
+<li class="level2"><a href="http://192.168.1.188/wiki/doku.php?id=wiki:dev:start:dataservice#打电话接口" style="color: rgb(102, 102, 102);">打电话接口</a></li>
+<li class="level2"><a href="http://192.168.1.188/wiki/doku.php?id=wiki:dev:start:dataservice#发送验证码接口" style="color: rgb(102, 102, 102);">发送验证码接口</a></li>
+<li class="level2"><a href="http://192.168.1.188/wiki/doku.php?id=wiki:dev:start:dataservice#查询消息发送次数接口" style="color: rgb(102, 102, 102);">查询消息发送次数接口</a></li>
+<li class="level2"><a href="http://192.168.1.188/wiki/doku.php?id=wiki:dev:start:dataservice#验证验证码接口" style="color: rgb(102, 102, 102);">验证验证码接口</a></li>
+<li class="level2"><a href="http://192.168.1.188/wiki/doku.php?id=wiki:dev:start:dataservice#查询规则发送次数接口" style="color: rgb(102, 102, 102);">查询规则发送次数接口</a></li>
+<li class="level2"><a href="http://192.168.1.188/wiki/doku.php?id=wiki:dev:start:dataservice#投票统计接口" style="color: rgb(102, 102, 102);">投票统计接口</a></li>
+</ul></li>
+</ul>
+
+</div>
+</nav>
+<!-- TOC END -->
+</div></div>
+          </div>
+        </div>
+
+      </article>
+
+      
+    </main>
+
+    <div class="small text-right">
+
+            <span class="docInfo">
+        <ul class="list-inline"><li><i class="fa fa-fw fa-file-text-o text-muted"></i> <span title="wiki/dev/start/dataservice.txt">wiki/dev/start/dataservice.txt</span></li><li><i class="fa fa-fw fa-calendar text-muted"></i> 最后更改: <span title="2016/09/09 18:33">2016/09/09 18:33</span></li><li class="text-muted">由 石斌</li></ul>      </span>
+      
+      
+    </div>
+
+        <div id="dw__license" class="text-center small">
+      <div class="license">除额外注明的地方外，本维基上的内容按下列许可协议发布： <a href="http://creativecommons.org/licenses/by-sa/4.0/" rel="license" class="urlextern">CC Attribution-Share Alike 4.0 International</a></div>    </div>
+    
+    <div class="text-center hidden-print">
+
+  <a href="http://creativecommons.org/licenses/by-sa/4.0/" rel="license"><img src="./wiki_dev_start_dataservice [增长引擎]_files/cc-by-sa.png" alt="CC Attribution-Share Alike 4.0 International"></a>
+  <a href="http://getbootstrap.com/" title="Built with Bootstrap 3">
+    <img src="./wiki_dev_start_dataservice [增长引擎]_files/button-bootstrap3.png" width="80" height="15" alt="Built with Bootstrap 3">
+  </a>
+
+  <a href="http://www.php.net/" title="Powered by PHP">
+    <img src="./wiki_dev_start_dataservice [增长引擎]_files/button-php.gif" width="80" height="15" alt="Powered by PHP">
+  </a>
+
+  <a href="http://validator.w3.org/check/referer" title="Valid HTML5">
+    <img src="./wiki_dev_start_dataservice [增长引擎]_files/button-html5.png" width="80" height="15" alt="Valid HTML5">
+  </a>
+
+  <a href="http://jigsaw.w3.org/css-validator/check/referer?profile=css3" title="Valid CSS">
+    <img src="./wiki_dev_start_dataservice [增长引擎]_files/button-css.png" width="80" height="15" alt="Valid CSS">
+  </a>
+
+  <a href="http://dokuwiki.org/" title="Driven by DokuWiki">
+    <img src="./wiki_dev_start_dataservice [增长引擎]_files/button-dw.png" width="80" height="15" alt="Driven by DokuWiki">
+  </a>
+
+</div>
+<img src="./wiki_dev_start_dataservice [增长引擎]_files/indexer.php" width="2" height="1" alt="">
+    <a href="http://192.168.1.188/wiki/doku.php?id=wiki:dev:start:dataservice#dokuwiki__top" class="back-to-top hidden-print btn btn-default btn-sm" title="跳至内容" accesskey="t" style="display: block;"><i class="fa fa-chevron-up"></i></a>
+
+    <div id="screen__mode">      <span class="visible-xs-block"></span>
+      <span class="visible-sm-block"></span>
+      <span class="visible-md-block"></span>
+      <span class="visible-lg-block"></span>
+    </div>
+
+  </div>
+
+
+
+</body></html>
